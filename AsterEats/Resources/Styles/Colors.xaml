@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!--
+        AsterTrek brand colours.
+        Keep the primary colour for key actions/highlights only - the rest
+        of the UI should stay neutral (white surfaces on a light background)
+        so the app doesn't feel like it's "shouting" teal everywhere.
+    -->
+    <Color x:Key="PrimaryColor">#36ABAD</Color>
+    <Color x:Key="PrimaryDarkColor">#278E90</Color>
+    <Color x:Key="AppBackground">#F3F5F5</Color>
+
+    <!-- Surfaces -->
+    <Color x:Key="SurfaceColor">#FFFFFF</Color>
+    <Color x:Key="BorderColor">#E2E8E8</Color>
+
+    <!-- Text -->
+    <Color x:Key="TextPrimary">#1B2626</Color>
+    <Color x:Key="TextSecondary">#6E7C7C</Color>
+    <Color x:Key="TextOnPrimary">#FFFFFF</Color>
+    <Color x:Key="TextMuted">#9AA6A6</Color>
+
+    <!-- Status colours (used sparingly for state indicators) -->
+    <Color x:Key="SuccessColor">#2FA84F</Color>
+    <Color x:Key="WarningColor">#DB9A2C</Color>
+    <Color x:Key="DangerColor">#D5514B</Color>
+    <Color x:Key="OfflineColor">#9AA5A5</Color>
+
+</ResourceDictionary>

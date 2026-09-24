@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="AsterEats.Controls.FloatingGlassNavigation">
+
+    <Grid
+        Padding="0"
+        HeightRequest="72"
+        HorizontalOptions="Fill"
+        VerticalOptions="End">
+
+        <!-- GLASS BAR -->
+        <Border
+            x:Name="GlassBar"
+            Margin="12,0,12,14"
+            BackgroundColor="#EFFFFFFF"
+            Stroke="#80FFFFFF"
+            StrokeThickness="1"
+            StrokeShape="RoundRectangle 26"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill">
+
+            <Border.Shadow>
+                <Shadow
+                    Brush="#40000000"
+                    Offset="0,4"
+                    Radius="14"
+                    Opacity="0.35" />
+            </Border.Shadow>
+
+            <Grid
+                x:Name="NavigationGrid"
+                Padding="8,7"
+                ColumnDefinitions="*,*,*,*">
+
+                <!-- ================================================= -->
+                <!-- GLASS SELECTION INDICATOR -->
+                <!-- ================================================= -->
+
+                <Border
+                    x:Name="SelectionIndicator"
+                    Grid.Column="0"
+                    Margin="2"
+                    BackgroundColor="#2636ABAD"
+                    Stroke="#4036ABAD"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 20"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Fill"
+                    InputTransparent="True">
+
+                    <Border.Shadow>
+                        <Shadow
+                            Brush="#3036ABAD"
+                            Offset="0,2"
+                            Radius="6"
+                            Opacity="0.25" />
+                    </Border.Shadow>
+
+                </Border>
+
+
+                <!-- ================================================= -->
+                <!-- HOME -->
+                <!-- ================================================= -->
+
+                <Grid
+                    Grid.Column="0"
+                    x:Name="HomeItem">
+
+                    <Grid.GestureRecognizers>
+
+                        <TapGestureRecognizer
+                            Tapped="OnHomeTapped" />
+
+                        <PanGestureRecognizer
+                            PanUpdated="OnHomePanUpdated" />
+
+                    </Grid.GestureRecognizers>
+
+                    <Image
+                        Source="icon_home.svg"
+                        WidthRequest="23"
+                        HeightRequest="23"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+
+                </Grid>
+
+
+                <!-- ================================================= -->
+                <!-- DELIVERIES -->
+                <!-- ================================================= -->
+
+                <Grid
+                    Grid.Column="1"
+                    x:Name="DeliveriesItem">
+
+                    <Grid.GestureRecognizers>
+
+                        <TapGestureRecognizer
+                            Tapped="OnDeliveriesTapped" />
+
+                        <PanGestureRecognizer
+                            PanUpdated="OnDeliveriesPanUpdated" />
+
+                    </Grid.GestureRecognizers>
+
+                    <Image
+                        Source="icon_delivery.svg"
+                        WidthRequest="23"
+                        HeightRequest="23"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+
+                </Grid>
+
+
+                <!-- ================================================= -->
+                <!-- EARNINGS -->
+                <!-- ================================================= -->
+
+                <Grid
+                    Grid.Column="2"
+                    x:Name="EarningsItem">
+
+                    <Grid.GestureRecognizers>
+
+                        <TapGestureRecognizer
+                            Tapped="OnEarningsTapped" />
+
+                        <PanGestureRecognizer
+                            PanUpdated="OnEarningsPanUpdated" />
+
+                    </Grid.GestureRecognizers>
+
+                    <Image
+                        Source="icon_wallet.svg"
+                        WidthRequest="23"
+                        HeightRequest="23"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+
+                </Grid>
+
+
+                <!-- ================================================= -->
+                <!-- PROFILE -->
+                <!-- ================================================= -->
+
+                <Grid
+                    Grid.Column="3"
+                    x:Name="ProfileItem">
+
+                    <Grid.GestureRecognizers>
+
+                        <TapGestureRecognizer
+                            Tapped="OnProfileTapped" />
+
+                        <PanGestureRecognizer
+                            PanUpdated="OnProfilePanUpdated" />
+
+                    </Grid.GestureRecognizers>
+
+                    <Image
+                        Source="icon_profile.svg"
+                        WidthRequest="23"
+                        HeightRequest="23"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+
+                </Grid>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</ContentView>

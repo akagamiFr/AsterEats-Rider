@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:AsterEats.ViewModels"
+             xmlns:controls="clr-namespace:AsterEats.Controls"
+             xmlns:models="clr-namespace:AsterEats.Models"
+             x:Class="AsterEats.Views.EarningsPage"
+             x:DataType="viewmodels:EarningsViewModel"
+             BackgroundColor="{StaticResource AppBackground}"
+             Shell.NavBarIsVisible="False">
+    <Grid>
+        <ScrollView>
+
+        <VerticalStackLayout Padding="20,22,20,30"
+                             Spacing="16">
+
+            <!-- Header -->
+            <VerticalStackLayout Spacing="4">
+
+                <Label Text="Earnings"
+                       Style="{StaticResource ScreenTitleStyle}"
+                       TextColor="#36ABAD"/>
+
+                <Label Text="Track your delivery income"
+                       Style="{StaticResource CaptionLabelStyle}" />
+
+            </VerticalStackLayout>
+
+            <!-- Total Earnings -->
+            <Frame Style="{StaticResource CardFrameStyle}">
+
+                <VerticalStackLayout Spacing="5">
+
+                    <Label Text="TOTAL EARNINGS"
+                           Style="{StaticResource CaptionLabelStyle}" />
+
+                    <Label Text="{Binding TotalEarnings, StringFormat='৳{0:0}'}"
+                           FontSize="36"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource PrimaryDarkColor}" />
+
+                    <Label Text="From completed deliveries"
+                           Style="{StaticResource MutedLabelStyle}" />
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+            <!-- Today -->
+            <Grid ColumnDefinitions="*,*"
+                  ColumnSpacing="12">
+
+                <Frame Grid.Column="0"
+                       Style="{StaticResource CardFrameStyle}">
+
+                    <VerticalStackLayout Spacing="4">
+
+                        <Label Text="TODAY"
+                               Style="{StaticResource CaptionLabelStyle}" />
+
+                        <Label Text="{Binding TodayEarnings, StringFormat='৳{0:0}'}"
+                               Style="{StaticResource StatValueStyle}" />
+
+                        <Label Text="Earnings"
+                               Style="{StaticResource MutedLabelStyle}" />
+
+                    </VerticalStackLayout>
+
+                </Frame>
+
+                <Frame Grid.Column="1"
+                       Style="{StaticResource CardFrameStyle}">
+
+                    <VerticalStackLayout Spacing="4">
+
+                        <Label Text="DELIVERIES"
+                               Style="{StaticResource CaptionLabelStyle}" />
+
+                        <Label Text="{Binding TodayDeliveries}"
+                               Style="{StaticResource StatValueStyle}" />
+
+                        <Label Text="Completed today"
+                               Style="{StaticResource MutedLabelStyle}" />
+
+                    </VerticalStackLayout>
+
+                </Frame>
+
+            </Grid>
+
+            <!-- History -->
+            <Label Text="Earning History"
+                   Style="{StaticResource SectionTitleStyle}" />
+
+            <CollectionView ItemsSource="{Binding Deliveries}"
+                            SelectionMode="None">
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate x:DataType="models:DeliveryOrder">
+
+                        <Frame Style="{StaticResource CardFrameStyle}"
+                               Margin="0,5">
+
+                            <Grid ColumnDefinitions="*,Auto"
+                                  RowDefinitions="Auto,Auto,Auto"
+                                  RowSpacing="5">
+
+                                <!-- Restaurant -->
+                                <Label Grid.Row="0"
+                                       Grid.Column="0"
+                                       Text="{Binding Restaurant.Name}"
+                                       Style="{StaticResource BodyLabelStyle}"
+                                       FontAttributes="Bold" />
+
+                                <!-- Earning -->
+                                <Label Grid.Row="0"
+                                       Grid.Column="1"
+                                       Text="{Binding DeliveryFee, StringFormat='৳{0:0}'}"
+                                       TextColor="{StaticResource PrimaryDarkColor}"
+                                       FontAttributes="Bold" />
+
+                                <!-- Address -->
+                                <Label Grid.Row="1"
+                                       Grid.ColumnSpan="2"
+                                       Text="{Binding DeliveryAddress}"
+                                       Style="{StaticResource CaptionLabelStyle}"
+                                       LineBreakMode="TailTruncation" />
+
+                                <!-- Date -->
+                                <Label Grid.Row="2"
+                                       Grid.Column="0"
+                                       Text="{Binding CompletedAtUtc, StringFormat='{0:dd MMM yyyy, hh:mm tt}'}"
+                                       Style="{StaticResource MutedLabelStyle}" />
+
+                                <!-- Status -->
+                                <Label Grid.Row="2"
+                                       Grid.Column="1"
+                                       Text="Completed"
+                                       TextColor="{StaticResource SuccessColor}"
+                                       FontAttributes="Bold"
+                                       FontSize="12" />
+
+                            </Grid>
+
+                        </Frame>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+        <controls:FloatingGlassNavigation
+    VerticalOptions="End"
+    HorizontalOptions="Fill" />
+    </Grid>
+
+</ContentPage>

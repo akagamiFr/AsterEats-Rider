@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:AsterEats.ViewModels"
+             x:Class="AsterEats.Views.DeliveryRequestPage"
+             x:DataType="viewmodels:DeliveryRequestViewModel"
+             BackgroundColor="{StaticResource AppBackground}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="*,Auto">
+
+        <!-- Dimmed background -->
+        <BoxView Grid.RowSpan="2"
+                 Color="#66000000" />
+
+        <!-- Bottom Sheet -->
+        <Border Grid.Row="1"
+                BackgroundColor="{StaticResource AppBackground}"
+                StrokeThickness="0"
+                Padding="22,24,22,28">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="26,26,0,0" />
+            </Border.StrokeShape>
+
+            <VerticalStackLayout Spacing="18">
+
+                <!-- Handle -->
+                <BoxView WidthRequest="45"
+                         HeightRequest="5"
+                         CornerRadius="3"
+                         Color="#C9D0D0"
+                         HorizontalOptions="Center" />
+
+                <!-- Header -->
+                <Grid ColumnDefinitions="*,Auto">
+
+                    <VerticalStackLayout Spacing="3">
+
+                        <Label Text="New Delivery Request"
+                               Style="{StaticResource ScreenTitleStyle}" />
+
+                        <Label Text="A new order is available"
+                               Style="{StaticResource CaptionLabelStyle}" />
+
+                    </VerticalStackLayout>
+
+                    <Border Grid.Column="1"
+                            BackgroundColor="#E8F7F7"
+                            StrokeThickness="0"
+                            Padding="10,7">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+
+                        <Label Text="{Binding Delivery.DistanceKm, StringFormat='{0:0.0} km'}"
+                               TextColor="{StaticResource PrimaryDarkColor}"
+                               FontAttributes="Bold" />
+                    </Border>
+
+                </Grid>
+
+                <!-- Restaurant -->
+                <Border BackgroundColor="White"
+                        Stroke="#E3E8E8"
+                        StrokeThickness="1"
+                        Padding="16">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="16" />
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label Text="PICKUP"
+                               Style="{StaticResource CaptionLabelStyle}"
+                               TextColor="{StaticResource PrimaryDarkColor}"
+                               FontAttributes="Bold" />
+
+                        <Label Text="{Binding Delivery.Restaurant.Name}"
+                               Style="{StaticResource SectionTitleStyle}" />
+
+                        <Label Text="{Binding Delivery.Restaurant.Address}"
+                               Style="{StaticResource BodyLabelStyle}" />
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <!-- Delivery -->
+                <Border BackgroundColor="White"
+                        Stroke="#E3E8E8"
+                        StrokeThickness="1"
+                        Padding="16">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="16" />
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label Text="DROP-OFF"
+                               Style="{StaticResource CaptionLabelStyle}"
+                               TextColor="{StaticResource PrimaryDarkColor}"
+                               FontAttributes="Bold" />
+
+                        <Label Text="{Binding Delivery.CustomerName}"
+                               Style="{StaticResource SectionTitleStyle}" />
+
+                        <Label Text="{Binding Delivery.DeliveryAddress}"
+                               Style="{StaticResource BodyLabelStyle}" />
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <!-- Earnings -->
+                <Grid ColumnDefinitions="*,Auto"
+                      Padding="2,0">
+
+                    <VerticalStackLayout Grid.Column="0"
+                                         Spacing="2">
+
+                        <Label Text="Delivery Fee"
+                               Style="{StaticResource CaptionLabelStyle}" />
+
+                        <Label Text="{Binding Delivery.DeliveryFee, StringFormat='৳{0:0}'}"
+                               Style="{StaticResource StatValueStyle}"
+                               TextColor="{StaticResource PrimaryDarkColor}" />
+
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="1"
+                                         HorizontalOptions="End"
+                                         Spacing="2">
+
+                        <Label Text="Payment"
+                               Style="{StaticResource CaptionLabelStyle}" />
+
+                        <Label Text="{Binding Delivery.PaymentMethod}"
+                               Style="{StaticResource BodyLabelStyle}"
+                               FontAttributes="Bold" />
+
+                    </VerticalStackLayout>
+
+                </Grid>
+
+                <!-- Buttons -->
+                <Grid ColumnDefinitions="*,*"
+                      ColumnSpacing="12">
+
+                    <Button Grid.Column="0"
+                            Text="REJECT"
+                            Command="{Binding RejectCommand}"
+                            BackgroundColor="Transparent"
+                            BorderColor="#D75B5B"
+                            BorderWidth="1"
+                            TextColor="#B43F3F"
+                            HeightRequest="52"
+                            CornerRadius="14" />
+
+                    <Button Grid.Column="1"
+                            Text="ACCEPT"
+                            Command="{Binding AcceptCommand}"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            HeightRequest="52"
+                            CornerRadius="14" />
+
+                </Grid>
+
+            </VerticalStackLayout>
+
+        </Border>
+
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:AsterEats.ViewModels"
+             xmlns:models="clr-namespace:AsterEats.Models"
+             x:Class="AsterEats.Views.NotificationsPage"
+             x:DataType="viewmodels:NotificationsViewModel"
+             BackgroundColor="{StaticResource AppBackground}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <!-- ==================== HEADER ==================== -->
+
+        <Grid Grid.Row="0"
+              Padding="20,18"
+              ColumnDefinitions="46,*"
+              ColumnSpacing="12">
+
+            <!-- Back Button -->
+            <Border Grid.Column="0"
+                    WidthRequest="44"
+                    HeightRequest="44"
+                    BackgroundColor="White"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 22"
+                    HorizontalOptions="Start">
+
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="BackButton_Clicked" />
+                </Border.GestureRecognizers>
+
+                <Path Data="M19,12
+                           H5
+                           M11,6
+                           L5,12
+                           L11,18"
+                      Stroke="{StaticResource PrimaryDarkColor}"
+                      StrokeThickness="2.2"
+                      StrokeLineCap="Round"
+                      StrokeLineJoin="Round"
+                      WidthRequest="20"
+                      HeightRequest="20"
+                      HorizontalOptions="Center"
+                      VerticalOptions="Center" />
+
+            </Border>
+
+
+            <!-- Page Title -->
+            <Label Grid.Column="1"
+                   Text="Notifications"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="#278E90"
+                   VerticalOptions="Center" />
+
+        </Grid>
+
+
+        <!-- ==================== UNREAD HEADER ==================== -->
+
+        <Grid Grid.Row="1"
+              Padding="20,0,20,8"
+              ColumnDefinitions="*,Auto">
+
+            <!-- Unread Count -->
+            <Label Grid.Column="0"
+                   Text="{Binding UnreadNotificationCount, StringFormat='{0} unread'}"
+                   FontSize="13"
+                   TextColor="#777777"
+                   VerticalOptions="Center" />
+
+            <!-- Mark All Read -->
+            <Button Grid.Column="1"
+                    Text="MARK ALL AS READ"
+                    Command="{Binding MarkAllReadCommand}"
+                    BackgroundColor="Transparent"
+                    TextColor="#278E90"
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    Padding="4,4" />
+
+        </Grid>
+
+
+        <!-- ==================== NOTIFICATION LIST ==================== -->
+
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding Notifications}"
+                        SelectionMode="None"
+                        Margin="0,4,0,0">
+
+            <!-- Empty State -->
+            <CollectionView.EmptyView>
+
+                <VerticalStackLayout Spacing="8"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center">
+
+                    <Label Text="No notifications"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#278E90"
+                           HorizontalTextAlignment="Center" />
+
+                    <Label Text="You're all caught up."
+                           FontSize="14"
+                           TextColor="#777777"
+                           HorizontalTextAlignment="Center" />
+
+                </VerticalStackLayout>
+
+            </CollectionView.EmptyView>
+
+
+            <!-- Notification Item -->
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate x:DataType="models:Notification">
+
+                    <Frame Margin="20,6"
+                           Padding="16"
+                           BackgroundColor="White"
+                           BorderColor="#E5EAEA"
+                           CornerRadius="16"
+                           HasShadow="False">
+
+                        <Grid ColumnDefinitions="Auto,*"
+                              ColumnSpacing="14">
+
+                            <!-- Notification Icon -->
+                            <Border Grid.Column="0"
+                                    WidthRequest="42"
+                                    HeightRequest="42"
+                                    BackgroundColor="#E6F5F5"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 21"
+                                    VerticalOptions="Start">
+
+                                <Path Data="M12,3
+                                           C9,3 7,5.2 7,8
+                                           V10.5
+                                           C7,12.2 6.4,13.5 5,15
+                                           H19
+                                           C17.6,13.5 17,12.2 17,10.5
+                                           V8
+                                           C17,5.2 15,3 12,3
+                                           M10,18
+                                           C10.4,19.2 11.1,20 12,20
+                                           C12.9,20 13.6,19.2 14,18"
+                                      Stroke="#278E90"
+                                      StrokeThickness="1.7"
+                                      StrokeLineCap="Round"
+                                      StrokeLineJoin="Round"
+                                      WidthRequest="20"
+                                      HeightRequest="20"
+                                      HorizontalOptions="Center"
+                                      VerticalOptions="Center" />
+
+                            </Border>
+
+
+                            <!-- Notification Content -->
+                            <VerticalStackLayout Grid.Column="1"
+                                                 Spacing="6">
+
+                                <!-- Title -->
+                                <Label Text="{Binding Title}"
+                                       FontSize="17"
+                                       FontAttributes="Bold"
+                                       TextColor="#278E90"
+                                       LineBreakMode="WordWrap" />
+
+                                <!-- Message -->
+                                <Label Text="{Binding Message}"
+                                       FontSize="14"
+                                       TextColor="#222222"
+                                       LineBreakMode="WordWrap" />
+
+                                <!-- Date -->
+                                <Label Text="{Binding DateUtc, StringFormat='{0:dd MMM yyyy, hh:mm tt}'}"
+                                       FontSize="11"
+                                       TextColor="#777777" />
+
+                            </VerticalStackLayout>
+
+                        </Grid>
+
+                    </Frame>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>

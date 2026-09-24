@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:AsterEats.ViewModels"
+             xmlns:controls="clr-namespace:AsterEats.Controls"
+             x:Class="AsterEats.Views.ProfilePage"
+             x:DataType="viewmodels:ProfileViewModel"
+             BackgroundColor="{StaticResource AppBackground}"
+             Shell.NavBarIsVisible="False">
+    <Grid>
+        <ScrollView>
+
+        <VerticalStackLayout Padding="20,22,20,30"
+                             Spacing="16">
+
+            <Label Text="Profile"
+                   Style="{StaticResource ScreenTitleStyle}" 
+                   TextColor="#36ABAD"/>
+
+            <!-- Rider profile -->
+            <Frame Style="{StaticResource CardFrameStyle}">
+
+                <VerticalStackLayout Spacing="14">
+
+                    <Grid ColumnDefinitions="Auto,*"
+                          ColumnSpacing="14">
+
+                        <Frame WidthRequest="68"
+                               HeightRequest="68"
+                               CornerRadius="34"
+                               Padding="0"
+                               BackgroundColor="{StaticResource PrimaryColor}"
+                               HasShadow="False">
+
+                            <Label Text="{Binding Rider.Name, StringFormat='{}{0}'}"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="White"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalTextAlignment="Center" />
+
+                        </Frame>
+
+                        <VerticalStackLayout Grid.Column="1"
+                                             VerticalOptions="Center"
+                                             Spacing="3">
+
+                            <Label Text="{Binding Rider.Name}"
+                                   Style="{StaticResource SectionTitleStyle}" />
+
+                            <Label Text="{Binding Rider.VehicleType}"
+                                   Style="{StaticResource CaptionLabelStyle}" />
+
+                            <Label Text="{Binding Rider.Rating, StringFormat='Rating: {0:0.0}'}"
+                                   Style="{StaticResource CaptionLabelStyle}" />
+
+                        </VerticalStackLayout>
+
+                    </Grid>
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+            <!-- Personal information -->
+            <Frame Style="{StaticResource CardFrameStyle}">
+
+                <VerticalStackLayout Spacing="14">
+
+                    <Label Text="Personal Information"
+                           Style="{StaticResource SectionTitleStyle}" />
+
+                    <VerticalStackLayout Spacing="2">
+                        <Label Text="Phone"
+                               Style="{StaticResource CaptionLabelStyle}" />
+                        <Label Text="{Binding Rider.Phone}"
+                               Style="{StaticResource BodyLabelStyle}" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="2">
+                        <Label Text="Email"
+                               Style="{StaticResource CaptionLabelStyle}" />
+                        <Label Text="{Binding Rider.Email}"
+                               Style="{StaticResource BodyLabelStyle}" />
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+            <!-- Vehicle -->
+            <Frame Style="{StaticResource CardFrameStyle}">
+
+                <VerticalStackLayout Spacing="14">
+
+                    <Label Text="Vehicle"
+                           Style="{StaticResource SectionTitleStyle}" />
+
+                    <Grid ColumnDefinitions="*,*">
+
+                        <VerticalStackLayout Grid.Column="0"
+                                             Spacing="2">
+
+                            <Label Text="Type"
+                                   Style="{StaticResource CaptionLabelStyle}" />
+
+                            <Label Text="{Binding Rider.VehicleType}"
+                                   Style="{StaticResource BodyLabelStyle}" />
+
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="1"
+                                             Spacing="2">
+
+                            <Label Text="Registration"
+                                   Style="{StaticResource CaptionLabelStyle}" />
+
+                            <Label Text="{Binding Rider.VehicleNumber}"
+                                   Style="{StaticResource BodyLabelStyle}" />
+
+                        </VerticalStackLayout>
+
+                    </Grid>
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+            <!-- Performance -->
+            <Frame Style="{StaticResource CardFrameStyle}">
+
+                <Grid ColumnDefinitions="*,*">
+
+                    <VerticalStackLayout Grid.Column="0"
+                                         Spacing="3">
+
+                        <Label Text="Rating"
+                               Style="{StaticResource CaptionLabelStyle}" />
+
+                        <Label Text="{Binding Rider.Rating, StringFormat='{0:0.0}'}"
+                               Style="{StaticResource StatValueStyle}" />
+
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="1"
+                                         Spacing="3">
+
+                        <Label Text="Completed"
+                               Style="{StaticResource CaptionLabelStyle}" />
+
+                        <Label Text="{Binding Rider.CompletedDeliveries}"
+                               Style="{StaticResource StatValueStyle}" />
+
+                    </VerticalStackLayout>
+
+                </Grid>
+
+            </Frame>
+
+            <!-- Notifications -->
+            <Button Text="{Binding UnreadNotificationCount, StringFormat='Notifications ({0})'}"
+                    Command="{Binding NotificationsCommand}"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    HeightRequest="54" />
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+        <controls:FloatingGlassNavigation
+    VerticalOptions="End"
+    HorizontalOptions="Fill" />
+    </Grid>
+
+</ContentPage>

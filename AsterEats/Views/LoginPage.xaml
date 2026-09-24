@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:AsterEats.ViewModels"
+             
+             x:Class="AsterEats.Views.LoginPage"
+             x:DataType="viewmodels:LoginViewModel"
+             BackgroundColor="{StaticResource AppBackground}"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24,50,24,24"
+                             Spacing="0">
+
+            <!-- Logo -->
+
+            <VerticalStackLayout Spacing="4"
+                                 Margin="0,10,0,20">
+
+                <Label Text="AsterEats"
+                       FontSize="36"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource PrimaryDarkColor}"
+                       HorizontalOptions="Center" />
+
+                <Label Text="Rider"
+                       FontSize="14"
+                       TextColor="#718080"
+                       HorizontalOptions="Center" />
+
+            </VerticalStackLayout>
+
+
+            <!-- Lottie Animation -->
+
+            <Image
+    Source="ordering_online_food.gif"
+    WidthRequest="220"
+    HeightRequest="180"
+    Aspect="AspectFit"
+    HorizontalOptions="Center"
+    VerticalOptions="Center"
+    Margin="0,0,0,20" />
+
+
+            <!-- Heading -->
+
+            <VerticalStackLayout Spacing="6"
+                                 Margin="0,0,0,25">
+
+                <Label Text="Welcome back"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="#172020" />
+
+                <Label Text="Sign in to continue delivering with AsterEats."
+                       FontSize="14"
+                       TextColor="#718080" />
+
+            </VerticalStackLayout>
+
+
+            <!-- Phone Label -->
+
+            <Label Text="PHONE NUMBER"
+                   FontSize="11"
+                   FontAttributes="Bold"
+                   CharacterSpacing="1"
+                   TextColor="#718080"
+                   Margin="2,0,0,8" />
+
+
+            <!-- Phone Input -->
+
+            <Border BackgroundColor="White"
+                    Stroke="#D9E0E0"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12"
+                    HeightRequest="58">
+
+                <Grid ColumnDefinitions="Auto,Auto,*">
+
+                    <Label Grid.Column="0"
+                           Text="+880"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#172020"
+                           VerticalOptions="Center"
+                           Margin="16,0,12,0" />
+
+                    <BoxView Grid.Column="1"
+                             WidthRequest="1"
+                             HeightRequest="26"
+                             BackgroundColor="#D9E0E0"
+                             VerticalOptions="Center" />
+
+                    <Entry Grid.Column="2"
+                           Style="{StaticResource AppEntryStyle}"
+                           Placeholder="01XXXXXXXXX"
+                           Keyboard="Telephone"
+                           Text="{Binding PhoneOrEmail}"
+                           FontSize="16"
+                           ClearButtonVisibility="WhileEditing"
+                           VerticalOptions="Center"
+                           Margin="8,0,10,0" />
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- Status -->
+
+            <Label Text="{Binding StatusMessage}"
+                   TextColor="{StaticResource DangerColor}"
+                   FontSize="13"
+                   Margin="4,8,0,0"
+                   IsVisible="{Binding HasStatusMessage}" />
+
+
+            <!-- Continue -->
+
+            <Button Text="Continue"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Command="{Binding LoginCommand}"
+                    HeightRequest="54"
+                    Margin="0,20,0,0" />
+
+
+            <!-- Loading -->
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="{StaticResource PrimaryColor}"
+                               HeightRequest="28"
+                               Margin="0,12,0,0" />
+
+
+            <!-- OR -->
+
+            <Grid ColumnDefinitions="*,Auto,*"
+                  ColumnSpacing="14"
+                  Margin="0,28,0,20">
+
+                <BoxView Grid.Column="0"
+                         HeightRequest="1"
+                         BackgroundColor="#D9E0E0"
+                         VerticalOptions="Center" />
+
+                <Label Grid.Column="1"
+                       Text="OR"
+                       FontSize="11"
+                       FontAttributes="Bold"
+                       TextColor="#8A9696"
+                       VerticalOptions="Center" />
+
+                <BoxView Grid.Column="2"
+                         HeightRequest="1"
+                         BackgroundColor="#D9E0E0"
+                         VerticalOptions="Center" />
+
+            </Grid>
+
+
+            <!-- Google -->
+
+            <Border Stroke="#D9E0E0"
+                    StrokeThickness="1"
+                    BackgroundColor="White"
+                    StrokeShape="RoundRectangle 14"
+                    HeightRequest="54"
+                    Margin="0,12,0,0">
+
+                <Grid ColumnDefinitions="Auto,*"
+                      Padding="18,0">
+
+                    <Image Grid.Column="0"
+                           Source="icon_google.svg"
+                           WidthRequest="20"
+                           HeightRequest="20"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center" />
+
+                    <Label Grid.Column="1"
+                           Text="Continue with Google"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           TextColor="#202124"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Margin="-20,0,0,0" />
+
+                </Grid>
+
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnGoogleLoginTapped" />
+                </Border.GestureRecognizers>
+
+            </Border>
+
+
+            <!-- Email -->
+
+            <Border Stroke="#D9E0E0"
+                    StrokeThickness="1"
+                    BackgroundColor="White"
+                    StrokeShape="RoundRectangle 14"
+                    HeightRequest="54"
+                    Margin="0,12,0,0">
+
+                <Grid ColumnDefinitions="Auto,*"
+                      Padding="18,0">
+
+                    <Image Grid.Column="0"
+                           Source="icon_email.svg"
+                           WidthRequest="20"
+                           HeightRequest="20"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center" />
+
+                    <Label Grid.Column="1"
+                           Text="Continue with Email"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           TextColor="#202124"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Margin="-20,0,0,0" />
+
+                </Grid>
+
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnEmailLoginTapped" />
+                </Border.GestureRecognizers>
+
+            </Border>
+
+
+            <!-- More Options -->
+
+            <Button Text="More sign-in options"
+                    BackgroundColor="Transparent"
+                    TextColor="{StaticResource PrimaryDarkColor}"
+                    FontSize="14"
+                    FontAttributes="Bold"
+                    HeightRequest="45" />
+
+
+            <!-- Terms -->
+
+            <Label Text="By continuing, you agree to the AsterEats Terms of Service and Privacy Policy."
+                   FontSize="11"
+                   TextColor="#7A8787"
+                   HorizontalTextAlignment="Center"
+                   Margin="18,25,18,0" />
+
+
+            <!-- Footer -->
+
+            <Label Text="AsterTrek © 2026"
+                   FontSize="11"
+                   TextColor="#9AA4A4"
+                   HorizontalOptions="Center"
+                   Margin="0,25,0,0" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

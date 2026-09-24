@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:AsterEats.ViewModels"
+             xmlns:models="clr-namespace:AsterEats.Models"
+             x:Class="AsterEats.Views.OrderDetailsPage"
+             x:DataType="viewmodels:OrderDetailsViewModel"
+             Title="Order Details"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource AppBackground}">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- ==================== CUSTOM HEADER ==================== -->
+
+        <Grid Grid.Row="0"
+              Margin="20,12,20,8"
+              ColumnDefinitions="42,*"
+              ColumnSpacing="14"
+              VerticalOptions="Center">
+
+            <!-- Back Button -->
+            <Border Grid.Column="0"
+                    WidthRequest="42"
+                    HeightRequest="42"
+                    BackgroundColor="White"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 21"
+                    HorizontalOptions="Start">
+
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackTapped" />
+                </Border.GestureRecognizers>
+
+                <Path Data="M19,12 L5,12 M11,6 L5,12 L11,18"
+                      Stroke="{StaticResource PrimaryDarkColor}"
+                      StrokeThickness="2.2"
+                      StrokeLineCap="Round"
+                      StrokeLineJoin="Round"
+                      WidthRequest="20"
+                      HeightRequest="20"
+                      HorizontalOptions="Center"
+                      VerticalOptions="Center" />
+
+            </Border>
+
+            <!-- Page Title -->
+            <Label Grid.Column="1"
+       Text="Order Details"
+       Style="{StaticResource SectionTitleStyle}"
+       FontAttributes="Bold"
+       TextColor="{StaticResource PrimaryDarkColor}"
+       VerticalOptions="Center" />
+
+        </Grid>
+
+
+        <!-- ==================== ORDER CONTENT ==================== -->
+
+        <ScrollView Grid.Row="1">
+
+            <VerticalStackLayout Padding="20"
+                                 Spacing="16">
+
+                <!-- Order Number + Status -->
+                <Grid ColumnDefinitions="*,Auto">
+
+                    <Label Grid.Column="0"
+                           Text="{Binding Order.Id, StringFormat='Order #{0}'}"
+                           Style="{StaticResource SectionTitleStyle}" />
+
+                    <Frame Grid.Column="1"
+                           Style="{StaticResource StatusBadgeFrameStyle}"
+                           BackgroundColor="#E6F5F5">
+
+                        <Label Text="{Binding Order.StatusText}"
+                               Style="{StaticResource StatusBadgeLabelStyle}"
+                               TextColor="{StaticResource PrimaryDarkColor}" />
+
+                    </Frame>
+
+                </Grid>
+
+
+                <!-- Restaurant / Pickup -->
+                <Frame Style="{StaticResource CardFrameStyle}">
+
+                    <VerticalStackLayout Spacing="8">
+
+                        <Label Text="Pickup"
+                               Style="{StaticResource CaptionLabelStyle}" />
+
+                        <Label Text="{Binding Order.Restaurant.Name}"
+                               Style="{StaticResource BodyLabelStyle}"
+                               FontAttributes="Bold" />
+
+                        <Label Text="{Binding Order.Restaurant.Address}"
+                               Style="{StaticResource CaptionLabelStyle}" />
+
+                        <Button Text="CALL RESTAURANT"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                HeightRequest="42"
+                                FontSize="13"
+                                Command="{Binding CallRestaurantCommand}" />
+
+                    </VerticalStackLayout>
+
+                </Frame>
+
+
+                <!-- Customer / Drop-off -->
+                <Frame Style="{StaticResource CardFrameStyle}">
+
+                    <VerticalStackLayout Spacing="8">
+
+                        <Label Text="Deliver To"
+                               Style="{StaticResource CaptionLabelStyle}" />
+
+                        <Label Text="{Binding Order.CustomerName}"
+                               Style="{StaticResource BodyLabelStyle}"
+                               FontAttributes="Bold" />
+
+                        <Label Text="{Binding Order.DeliveryAddress}"
+                               Style="{StaticResource CaptionLabelStyle}" />
+
+                        <Button Text="CALL CUSTOMER"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                HeightRequest="42"
+                                FontSize="13"
+                                Command="{Binding CallCustomerCommand}" />
+
+                    </VerticalStackLayout>
+
+                </Frame>
+
+
+                <!-- Items -->
+                <Frame Style="{StaticResource CardFrameStyle}">
+
+                    <VerticalStackLayout Spacing="10">
+
+                        <Label Text="Items"
+                               Style="{StaticResource CaptionLabelStyle}" />
+
+
+                        <CollectionView ItemsSource="{Binding Order.Items}"
+                                        SelectionMode="None">
+
+                            <CollectionView.ItemTemplate>
+
+                                <DataTemplate x:DataType="models:OrderItem">
+
+                                    <Grid ColumnDefinitions="Auto,*,Auto"
+                                          Padding="0,4"
+                                          ColumnSpacing="10">
+
+                                        <Label Grid.Column="0"
+                                               Text="{Binding Quantity, StringFormat='{0}x'}"
+                                               Style="{StaticResource BodyLabelStyle}"
+                                               WidthRequest="34" />
+
+                                        <Label Grid.Column="1"
+                                               Text="{Binding Name}"
+                                               Style="{StaticResource BodyLabelStyle}" />
+
+                                        <Label Grid.Column="2"
+                                               Text="{Binding Price, StringFormat='৳{0:0}'}"
+                                               Style="{StaticResource CaptionLabelStyle}" />
+
+                                    </Grid>
+
+                                </DataTemplate>
+
+                            </CollectionView.ItemTemplate>
+
+                        </CollectionView>
+
+
+                        <BoxView HeightRequest="1"
+                                 Color="{StaticResource BorderColor}" />
+
+
+                        <!-- Order Amount -->
+                        <Grid ColumnDefinitions="*,Auto">
+
+                            <Label Grid.Column="0"
+                                   Text="Order Amount"
+                                   Style="{StaticResource BodyLabelStyle}" />
+
+                            <Label Grid.Column="1"
+                                   Text="{Binding Order.OrderAmount, StringFormat='৳{0:0}'}"
+                                   Style="{StaticResource BodyLabelStyle}"
+                                   FontAttributes="Bold" />
+
+                        </Grid>
+
+
+                        <!-- Delivery Fee -->
+                        <Grid ColumnDefinitions="*,Auto">
+
+                            <Label Grid.Column="0"
+                                   Text="Delivery Fee (yours)"
+                                   Style="{StaticResource BodyLabelStyle}" />
+
+                            <Label Grid.Column="1"
+                                   Text="{Binding Order.DeliveryFee, StringFormat='৳{0:0}'}"
+                                   Style="{StaticResource BodyLabelStyle}"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource PrimaryDarkColor}" />
+
+                        </Grid>
+
+
+                        <!-- Payment -->
+                        <Grid ColumnDefinitions="*,Auto">
+
+                            <Label Grid.Column="0"
+                                   Text="Payment Method"
+                                   Style="{StaticResource CaptionLabelStyle}" />
+
+                            <Label Grid.Column="1"
+                                   Text="{Binding Order.PaymentMethod}"
+                                   Style="{StaticResource CaptionLabelStyle}" />
+
+                        </Grid>
+
+
+                        <!-- Distance -->
+                        <Grid ColumnDefinitions="*,Auto">
+
+                            <Label Grid.Column="0"
+                                   Text="Distance"
+                                   Style="{StaticResource CaptionLabelStyle}" />
+
+                            <Label Grid.Column="1"
+                                   Text="{Binding Order.DistanceKm, StringFormat='{0:0.0} km'}"
+                                   Style="{StaticResource CaptionLabelStyle}" />
+
+                        </Grid>
+
+                    </VerticalStackLayout>
+
+                </Frame>
+
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+
+        <!-- ==================== PINNED ACTION ==================== -->
+
+        <Button Grid.Row="2"
+                Text="START DELIVERY"
+                Style="{StaticResource PrimaryButtonStyle}"
+                Margin="20,0,20,20"
+                Command="{Binding StartDeliveryCommand}" />
+
+    </Grid>
+
+</ContentPage>

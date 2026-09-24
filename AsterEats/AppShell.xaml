@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Shell
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:AsterEats.Views"
+    x:Class="AsterEats.AppShell"
+    FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="False"
+    BackgroundColor="{StaticResource AppBackground}">
+
+    <!-- ===================================================== -->
+    <!-- LOGIN -->
+    <!-- ===================================================== -->
+
+    <ShellContent
+        x:Name="LoginShellContent"
+        Route="login"
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Shell.NavBarIsVisible="False"
+        Shell.TabBarIsVisible="False" />
+
+
+    <!-- ===================================================== -->
+    <!-- MAIN APPLICATION -->
+    <!-- ===================================================== -->
+
+    <TabBar
+        x:Name="MainTabs"
+        Route="main"
+        Shell.TabBarIsVisible="False">
+
+        <!-- HOME -->
+
+        <Tab
+            Title="Home"
+            Route="home"
+            Icon="icon_home.svg">
+
+            <ShellContent
+                ContentTemplate="{DataTemplate views:HomePage}"
+                Shell.NavBarIsVisible="False"
+                Shell.TabBarIsVisible="False" />
+
+        </Tab>
+
+
+        <!-- DELIVERIES -->
+
+        <Tab
+            Title="Deliveries"
+            Route="deliveries"
+            Icon="icon_delivery.svg">
+
+            <ShellContent
+                ContentTemplate="{DataTemplate views:DeliveriesPage}"
+                Shell.NavBarIsVisible="False"
+                Shell.TabBarIsVisible="False" />
+
+        </Tab>
+
+
+        <!-- EARNINGS -->
+
+        <Tab
+            Title="Earnings"
+            Route="earnings"
+            Icon="icon_wallet.svg">
+
+            <ShellContent
+                ContentTemplate="{DataTemplate views:EarningsPage}"
+                Shell.NavBarIsVisible="False"
+                Shell.TabBarIsVisible="False" />
+
+        </Tab>
+
+
+        <!-- PROFILE -->
+
+        <Tab
+            Title="Profile"
+            Route="profile"
+            Icon="icon_profile.svg">
+
+            <ShellContent
+                ContentTemplate="{DataTemplate views:ProfilePage}"
+                Shell.NavBarIsVisible="False"
+                Shell.TabBarIsVisible="False" />
+
+        </Tab>
+
+    </TabBar>
+
+</Shell>

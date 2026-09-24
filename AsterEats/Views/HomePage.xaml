@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:AsterEats.ViewModels"
+             xmlns:controls="clr-namespace:AsterEats.Controls"
+             x:Class="AsterEats.Views.HomePage"
+             x:DataType="viewmodels:HomeViewModel"
+             BackgroundColor="{StaticResource AppBackground}">
+
+    <!-- Main Background Layer -->
+    <Grid>
+
+        <!-- Food Delivery Background Illustration -->
+        <Image Source="food_delivery_rider.svg"
+               Aspect="AspectFit"
+               WidthRequest="500"
+               HeightRequest="500"
+               Opacity="0.3"
+               HorizontalOptions="End"
+               VerticalOptions="End"
+               Margin="0,0,0,117" />
+
+        <!-- Existing Home Page Content -->
+        <ScrollView>
+            <VerticalStackLayout Padding="20"
+                                 Spacing="18">
+
+                <!-- Header -->
+                <Grid ColumnDefinitions="*,Auto">
+
+                    <HorizontalStackLayout Spacing="0"
+                                           HorizontalOptions="Start">
+
+                        <Label Text="Aster"
+                               Style="{StaticResource ScreenTitleStyle}"
+                               TextColor="#36ABAD" />
+
+                        <Label x:Name="EatsTitle"
+                               Text=""
+                               Style="{StaticResource ScreenTitleStyle}"
+                               TextColor="#D98E04" />
+
+                        <Label x:Name="TypingCursor"
+                               Text="|"
+                               Style="{StaticResource ScreenTitleStyle}"
+                               TextColor="#D98E04"
+                               Opacity="0" />
+
+                    </HorizontalStackLayout>
+
+                </Grid>
+
+
+                <!-- Go Online Area + Notification -->
+                <Grid Margin="0,0,0,0">
+
+                    <!-- Notification Button -->
+                    <Border WidthRequest="46"
+                            HeightRequest="46"
+                            HorizontalOptions="End"
+                            VerticalOptions="Start"
+                            BackgroundColor="White"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 23">
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnNotificationTapped" />
+                        </Border.GestureRecognizers>
+
+                        <Path Data="M12,3
+                                   C9,3 7,5.2 7,8
+                                   V10.5
+                                   C7,12.2 6.4,13.5 5,15
+                                   H19
+                                   C17.6,13.5 17,12.2 17,10.5
+                                   V8
+                                   C17,5.2 15,3 12,3
+                                   M10,18
+                                   C10.4,19.2 11.1,20 12,20
+                                   C12.9,20 13.6,19.2 14,18"
+                              Stroke="{StaticResource PrimaryDarkColor}"
+                              StrokeThickness="1.8"
+                              StrokeLineCap="Round"
+                              StrokeLineJoin="Round"
+                              WidthRequest="22"
+                              HeightRequest="22"
+                              HorizontalOptions="Center"
+                              VerticalOptions="Center" />
+
+                    </Border>
+
+
+                    <!-- Existing Go Online -->
+                    <VerticalStackLayout Spacing="12"
+                                         HorizontalOptions="Center"
+                                         Margin="0,18,0,8">
+
+                        <Grid WidthRequest="190"
+                              HeightRequest="190">
+
+                            <!-- Pulse Ring -->
+                            <Border x:Name="PulseRing"
+                                    WidthRequest="190"
+                                    HeightRequest="190"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    Stroke="{StaticResource PrimaryColor}"
+                                    StrokeThickness="2"
+                                    BackgroundColor="Transparent"
+                                    StrokeShape="RoundRectangle 95"
+                                    Opacity="0.25" />
+
+                            <!-- Main Button -->
+                            <Border x:Name="OnlineButton"
+                                    WidthRequest="150"
+                                    HeightRequest="150"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    BackgroundColor="{StaticResource PrimaryColor}"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 75">
+
+                                <VerticalStackLayout HorizontalOptions="Center"
+                                                     VerticalOptions="Center"
+                                                     Spacing="5">
+
+                                    <Label Text="{Binding GoOnlineButtonText}"
+                                           TextColor="White"
+                                           FontSize="20"
+                                           FontAttributes="Bold"
+                                           HorizontalTextAlignment="Center" />
+
+                                    <Label Text="{Binding Rider.StatusText}"
+                                           TextColor="#DFFFFFFF"
+                                           FontSize="13"
+                                           HorizontalTextAlignment="Center" />
+
+                                </VerticalStackLayout>
+
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnOnlineButtonTapped" />
+                                </Border.GestureRecognizers>
+
+                            </Border>
+
+                        </Grid>
+
+
+                        <!-- Online Status -->
+                        <HorizontalStackLayout Spacing="8"
+                                               HorizontalOptions="Center">
+
+                            <BoxView WidthRequest="9"
+                                     HeightRequest="9"
+                                     CornerRadius="4.5">
+
+                                <BoxView.Triggers>
+
+                                    <DataTrigger TargetType="BoxView"
+                                                 Binding="{Binding Rider.IsOnline}"
+                                                 Value="True">
+
+                                        <Setter Property="Color"
+                                                Value="{StaticResource SuccessColor}" />
+
+                                    </DataTrigger>
+
+                                    <DataTrigger TargetType="BoxView"
+                                                 Binding="{Binding Rider.IsOnline}"
+                                                 Value="False">
+
+                                        <Setter Property="Color"
+                                                Value="{StaticResource OfflineColor}" />
+
+                                    </DataTrigger>
+
+                                </BoxView.Triggers>
+
+                            </BoxView>
+
+                            <Label Text="{Binding Rider.StatusText}"
+                                   Style="{StaticResource CaptionLabelStyle}" />
+
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+
+                </Grid>
+
+
+                <!-- Today's Summary -->
+                <Frame Style="{StaticResource CardFrameStyle}">
+
+                    <VerticalStackLayout Spacing="12">
+
+                        <Label Text="Today's Summary"
+                               Style="{StaticResource SectionTitleStyle}" />
+
+                        <Grid ColumnDefinitions="*,*">
+
+                            <VerticalStackLayout Grid.Column="0"
+                                                 Spacing="2">
+
+                                <Label Text="Deliveries"
+                                       Style="{StaticResource CaptionLabelStyle}" />
+
+                                <Label Text="{Binding TodayDeliveryCount}"
+                                       Style="{StaticResource StatValueStyle}" />
+
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="1"
+                                                 Spacing="2">
+
+                                <Label Text="Earnings"
+                                       Style="{StaticResource CaptionLabelStyle}" />
+
+                                <Label Text="{Binding TodayEarningsAmount, StringFormat='৳{0:0}'}"
+                                       Style="{StaticResource StatValueStyle}" />
+
+                            </VerticalStackLayout>
+
+                        </Grid>
+
+                    </VerticalStackLayout>
+
+                </Frame>
+
+
+                <!-- Current Delivery -->
+                <Frame Style="{StaticResource CardFrameStyle}">
+
+                    <VerticalStackLayout Spacing="10">
+
+                        <Label Text="Current Delivery"
+                               Style="{StaticResource SectionTitleStyle}" />
+
+                        <Label Text="No active delivery"
+                               Style="{StaticResource MutedLabelStyle}"
+                               IsVisible="{Binding HasActiveDelivery, Converter={StaticResource InverseBoolConverter}}" />
+
+                        <VerticalStackLayout Spacing="4"
+                                             IsVisible="{Binding HasActiveDelivery}">
+
+                            <Label Text="{Binding ActiveDelivery.Restaurant.Name}"
+                                   Style="{StaticResource BodyLabelStyle}"
+                                   FontAttributes="Bold" />
+
+                            <Label Text="{Binding ActiveDelivery.DeliveryAddress}"
+                                   Style="{StaticResource CaptionLabelStyle}" />
+
+                            <Label Text="{Binding ActiveDelivery.StatusText}"
+                                   Style="{StaticResource CaptionLabelStyle}"
+                                   TextColor="{StaticResource PrimaryDarkColor}" />
+
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+        <controls:FloatingGlassNavigation
+    Grid.Row="0"
+    VerticalOptions="End"
+    HorizontalOptions="Fill" />
+
+    </Grid>
+
+</ContentPage>

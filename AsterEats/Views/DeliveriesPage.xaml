@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:AsterEats.ViewModels"
+             xmlns:controls="clr-namespace:AsterEats.Controls"
+             xmlns:models="clr-namespace:AsterEats.Models"
+             x:Class="AsterEats.Views.DeliveriesPage"
+             x:DataType="viewmodels:DeliveriesViewModel"
+             BackgroundColor="{StaticResource AppBackground}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0"
+                             Padding="20,22,20,12"
+                             Spacing="4">
+
+            <Label Text="Deliveries"
+                   Style="{StaticResource ScreenTitleStyle}"
+                   TextColor="#36ABAD"/>
+
+            <Label Text="Your completed delivery history"
+                   Style="{StaticResource CaptionLabelStyle}" />
+
+        </VerticalStackLayout>
+
+
+        <!-- Delivery List -->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Deliveries}"
+                        SelectionMode="None"
+                        Margin="0,0,0,10">
+
+            <CollectionView.EmptyView>
+
+                <VerticalStackLayout Padding="30"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Center"
+                                     Spacing="8">
+
+                    <Label Text="No completed deliveries"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           HorizontalTextAlignment="Center" />
+
+                    <Label Text="Completed deliveries will appear here."
+                           Style="{StaticResource CaptionLabelStyle}"
+                           HorizontalTextAlignment="Center" />
+
+                </VerticalStackLayout>
+
+            </CollectionView.EmptyView>
+
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate x:DataType="models:DeliveryOrder">
+
+                    <Frame Style="{StaticResource CardFrameStyle}"
+                           Margin="20,6">
+
+                        <Grid RowDefinitions="Auto,Auto,Auto"
+                              ColumnDefinitions="*,Auto"
+                              RowSpacing="6">
+
+                            <Label Grid.Row="0"
+                                   Grid.Column="0"
+                                   Text="{Binding Restaurant.Name}"
+                                   Style="{StaticResource SectionTitleStyle}" />
+
+                            <Label Grid.Row="0"
+                                   Grid.Column="1"
+                                   Text="{Binding DeliveryFee, StringFormat='৳{0:0}'}"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource PrimaryDarkColor}" />
+
+                            <Label Grid.Row="1"
+                                   Grid.ColumnSpan="2"
+                                   Text="{Binding DeliveryAddress}"
+                                   Style="{StaticResource CaptionLabelStyle}" />
+
+                            <Label Grid.Row="2"
+                                   Grid.Column="0"
+                                   Text="{Binding CompletedAtUtc, StringFormat='{0:dd MMM yyyy, hh:mm tt}'}"
+                                   Style="{StaticResource MutedLabelStyle}" />
+
+                            <Label Grid.Row="2"
+                                   Grid.Column="1"
+                                   Text="{Binding StatusText}"
+                                   TextColor="{StaticResource SuccessColor}"
+                                   FontAttributes="Bold"
+                                   FontSize="12" />
+
+                        </Grid>
+
+                    </Frame>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+
+        <!-- Floating Glass Navigation -->
+        <controls:FloatingGlassNavigation
+            Grid.Row="2"
+            VerticalOptions="End"
+            HorizontalOptions="Fill" />
+
+    </Grid>
+
+</ContentPage>
