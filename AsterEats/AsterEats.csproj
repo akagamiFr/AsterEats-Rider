@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
+		<StartupHookSupport>true</StartupHookSupport>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>AsterEats</RootNamespace>
@@ -48,6 +49,7 @@
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Images\splash.svg" Color="#36ABAD" BaseSize="128,128" />
 		<MauiImage Include="Resources\Images\appicon_fg.svg" />
+		<MauiImage Include="Resources\Images\food_delivery.webp" />
 		<MauiImage Include="Resources\Images\food_delivery_rider.svg" />
 		<MauiImage Include="Resources\Images\icon_delivery.svg" />
 		<MauiImage Include="Resources\Images\icon_email.svg" />
@@ -61,6 +63,7 @@
 		<MauiImage Include="Resources\Images\icon_profile.svg" />
 		<MauiImage Include="Resources\Images\icon_wallet.svg" />
 		<MauiImage Include="Resources\Images\ordering_online_food.gif" />
+		<MauiImage Include="Resources\Images\summary_icon.webp" />
 
 		<!-- Custom Fonts - add .ttf files here later and register them in MauiProgram.cs -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -68,12 +71,14 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\appicon_fg.svg" />
+	  <None Remove="Resources\Images\food_delivery.webp" />
 	  <None Remove="Resources\Images\food_delivery_rider.svg" />
 	  <None Remove="Resources\Images\icon_delivery.svg" />
 	  <None Remove="Resources\Images\icon_email.svg" />
 	  <None Remove="Resources\Images\icon_google.svg" />
 	  <None Remove="Resources\Images\icon_profile.svg" />
 	  <None Remove="Resources\Images\icon_wallet.svg" />
+	  <None Remove="Resources\Images\summary_icon.webp" />
 	  <None Remove="Resources\Raw\OnlineFoodOrder.json" />
 	</ItemGroup>
 

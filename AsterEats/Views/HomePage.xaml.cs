@@ -30,7 +30,7 @@ public partial class HomePage : ContentPage
     protected override void OnDisappearing()
     {
         // Stop title animation when leaving Home page
-        StopTitleAnimation();
+        
 
         base.OnDisappearing();
     }
@@ -237,5 +237,27 @@ public partial class HomePage : ContentPage
     private async void OnNotificationTapped(object sender, TappedEventArgs e)
     {
         await Shell.Current.GoToAsync("notifications");
+    }
+    private async void OnCurrentDeliveryTapped(
+        object sender,
+        TappedEventArgs e)
+    {
+        if (!_viewModel.HasActiveDelivery)
+            return;
+
+        if (sender is Frame frame)
+        {
+            await frame.ScaleTo(
+                0.97,
+                50,
+                Easing.CubicOut);
+
+            await frame.ScaleTo(
+                1.0,
+                50,
+                Easing.CubicIn);
+        }
+
+        await Shell.Current.GoToAsync("deliveryrequest");
     }
 }

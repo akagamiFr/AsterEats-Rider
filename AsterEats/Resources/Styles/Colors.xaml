@@ -17,11 +17,10 @@
     <Color x:Key="BorderColor">#E2E8E8</Color>
 
     <!-- Text -->
-    <Color x:Key="TextPrimary">#1B2626</Color>
-    <Color x:Key="TextSecondary">#6E7C7C</Color>
+    <Color x:Key="TextPrimary">#1E3031</Color>
+    <Color x:Key="TextSecondary">#5F7475</Color>
     <Color x:Key="TextOnPrimary">#FFFFFF</Color>
-    <Color x:Key="TextMuted">#9AA6A6</Color>
-
+    <Color x:Key="TextMuted">#8FA3A3</Color>
     <!-- Status colours (used sparingly for state indicators) -->
     <Color x:Key="SuccessColor">#2FA84F</Color>
     <Color x:Key="WarningColor">#DB9A2C</Color>

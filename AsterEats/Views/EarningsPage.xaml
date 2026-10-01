@@ -9,155 +9,380 @@
              x:DataType="viewmodels:EarningsViewModel"
              BackgroundColor="{StaticResource AppBackground}"
              Shell.NavBarIsVisible="False">
+
     <Grid>
+
         <ScrollView>
 
-        <VerticalStackLayout Padding="20,22,20,30"
-                             Spacing="16">
+            <VerticalStackLayout
+                Padding="20,22,20,110"
+                Spacing="16">
 
-            <!-- Header -->
-            <VerticalStackLayout Spacing="4">
+                <!-- ================= HEADER ================= -->
 
-                <Label Text="Earnings"
-                       Style="{StaticResource ScreenTitleStyle}"
-                       TextColor="#36ABAD"/>
+                <VerticalStackLayout Spacing="3">
 
-                <Label Text="Track your delivery income"
-                       Style="{StaticResource CaptionLabelStyle}" />
+                    <Label Text="Earnings"
+                           Style="{StaticResource ScreenTitleStyle}"
+                           TextColor="{StaticResource PrimaryColor}" 
+                           Margin="0,30,0,0"/>
 
-            </VerticalStackLayout>
-
-            <!-- Total Earnings -->
-            <Frame Style="{StaticResource CardFrameStyle}">
-
-                <VerticalStackLayout Spacing="5">
-
-                    <Label Text="TOTAL EARNINGS"
+                    <Label Text="Track your delivery income"
                            Style="{StaticResource CaptionLabelStyle}" />
-
-                    <Label Text="{Binding TotalEarnings, StringFormat='৳{0:0}'}"
-                           FontSize="36"
-                           FontAttributes="Bold"
-                           TextColor="{StaticResource PrimaryDarkColor}" />
-
-                    <Label Text="From completed deliveries"
-                           Style="{StaticResource MutedLabelStyle}" />
 
                 </VerticalStackLayout>
 
-            </Frame>
 
-            <!-- Today -->
-            <Grid ColumnDefinitions="*,*"
-                  ColumnSpacing="12">
+                <!-- ================= TOTAL EARNINGS ================= -->
 
-                <Frame Grid.Column="0"
-                       Style="{StaticResource CardFrameStyle}">
+                <Frame Style="{StaticResource CardFrameStyle}"
+                       Padding="18">
 
-                    <VerticalStackLayout Spacing="4">
+                    <Grid ColumnDefinitions="*,Auto"
+                          ColumnSpacing="14">
 
-                        <Label Text="TODAY"
-                               Style="{StaticResource CaptionLabelStyle}" />
+                        <!-- Earnings Content -->
+                        <VerticalStackLayout
+                            Grid.Column="0"
+                            Spacing="5">
 
-                        <Label Text="{Binding TodayEarnings, StringFormat='৳{0:0}'}"
-                               Style="{StaticResource StatValueStyle}" />
+                            <Label Text="TOTAL EARNINGS"
+                                   Style="{StaticResource CaptionLabelStyle}"
+                                   FontAttributes="Bold" />
 
-                        <Label Text="Earnings"
-                               Style="{StaticResource MutedLabelStyle}" />
+                            <Label Text="{Binding TotalEarnings, StringFormat='৳{0:0}'}"
+                                   FontSize="36"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource PrimaryDarkColor}" />
 
-                    </VerticalStackLayout>
+                            <Label Text="From completed deliveries"
+                                   Style="{StaticResource MutedLabelStyle}" />
+
+                        </VerticalStackLayout>
+
+
+                        <!-- Wallet Icon -->
+                        <Border Grid.Column="1"
+                                WidthRequest="64"
+                                HeightRequest="64"
+                                BackgroundColor="#1036ABAD"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 20"
+                                Padding="11"
+                                VerticalOptions="Center">
+
+                            <Image Source="icon_wallet.svg"
+                                   WidthRequest="42"
+                                   HeightRequest="42"
+                                   Aspect="AspectFit"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+
+                        </Border>
+
+                    </Grid>
 
                 </Frame>
 
-                <Frame Grid.Column="1"
-                       Style="{StaticResource CardFrameStyle}">
 
-                    <VerticalStackLayout Spacing="4">
+                <!-- ================= SMALL STAT CARDS ================= -->
 
-                        <Label Text="DELIVERIES"
-                               Style="{StaticResource CaptionLabelStyle}" />
+                <Grid ColumnDefinitions="*,*"
+                      ColumnSpacing="12">
 
-                        <Label Text="{Binding TodayDeliveries}"
-                               Style="{StaticResource StatValueStyle}" />
+                    <!-- Today -->
+                    <Frame Grid.Column="0"
+                           Style="{StaticResource CardFrameStyle}"
+                           Padding="16">
 
-                        <Label Text="Completed today"
-                               Style="{StaticResource MutedLabelStyle}" />
+                        <VerticalStackLayout Spacing="5">
 
-                    </VerticalStackLayout>
+                            <Label Text="TODAY"
+                                   Style="{StaticResource CaptionLabelStyle}"
+                                   FontAttributes="Bold" />
 
-                </Frame>
+                            <Label Text="{Binding TodayEarnings, StringFormat='৳{0:0}'}"
+                                   Style="{StaticResource StatValueStyle}" />
 
-            </Grid>
+                            <Label Text="Earnings"
+                                   Style="{StaticResource MutedLabelStyle}" />
 
-            <!-- History -->
-            <Label Text="Earning History"
-                   Style="{StaticResource SectionTitleStyle}" />
+                        </VerticalStackLayout>
 
-            <CollectionView ItemsSource="{Binding Deliveries}"
-                            SelectionMode="None">
+                    </Frame>
 
-                <CollectionView.ItemTemplate>
 
-                    <DataTemplate x:DataType="models:DeliveryOrder">
+                    <!-- Deliveries -->
+                    <Frame Grid.Column="1"
+                           Style="{StaticResource CardFrameStyle}"
+                           Padding="16">
 
-                        <Frame Style="{StaticResource CardFrameStyle}"
-                               Margin="0,5">
+                        <VerticalStackLayout Spacing="5">
 
-                            <Grid ColumnDefinitions="*,Auto"
-                                  RowDefinitions="Auto,Auto,Auto"
-                                  RowSpacing="5">
+                            <Label Text="DELIVERIES"
+                                   Style="{StaticResource CaptionLabelStyle}"
+                                   FontAttributes="Bold" />
 
-                                <!-- Restaurant -->
-                                <Label Grid.Row="0"
-                                       Grid.Column="0"
-                                       Text="{Binding Restaurant.Name}"
-                                       Style="{StaticResource BodyLabelStyle}"
-                                       FontAttributes="Bold" />
+                            <Label Text="{Binding TodayDeliveries}"
+                                   Style="{StaticResource StatValueStyle}" />
 
-                                <!-- Earning -->
-                                <Label Grid.Row="0"
-                                       Grid.Column="1"
-                                       Text="{Binding DeliveryFee, StringFormat='৳{0:0}'}"
-                                       TextColor="{StaticResource PrimaryDarkColor}"
-                                       FontAttributes="Bold" />
+                            <Label Text="Completed today"
+                                   Style="{StaticResource MutedLabelStyle}" />
 
-                                <!-- Address -->
-                                <Label Grid.Row="1"
-                                       Grid.ColumnSpan="2"
-                                       Text="{Binding DeliveryAddress}"
-                                       Style="{StaticResource CaptionLabelStyle}"
-                                       LineBreakMode="TailTruncation" />
+                        </VerticalStackLayout>
 
-                                <!-- Date -->
-                                <Label Grid.Row="2"
-                                       Grid.Column="0"
-                                       Text="{Binding CompletedAtUtc, StringFormat='{0:dd MMM yyyy, hh:mm tt}'}"
-                                       Style="{StaticResource MutedLabelStyle}" />
+                    </Frame>
 
-                                <!-- Status -->
-                                <Label Grid.Row="2"
-                                       Grid.Column="1"
-                                       Text="Completed"
-                                       TextColor="{StaticResource SuccessColor}"
+                </Grid>
+
+
+                <!-- ================= EARNINGS OVERVIEW ================= -->
+
+                <Frame Style="{StaticResource CardFrameStyle}"
+                       Padding="16">
+
+                    <VerticalStackLayout Spacing="12">
+
+                        <!-- Chart Header -->
+                        <Grid ColumnDefinitions="*,Auto">
+
+                            <VerticalStackLayout
+                                Grid.Column="0"
+                                Spacing="2">
+
+                                <Label Text="Earnings Overview"
+                                       Style="{StaticResource SectionTitleStyle}" />
+
+                                <Label Text="This week"
+                                       Style="{StaticResource CaptionLabelStyle}" />
+
+                            </VerticalStackLayout>
+
+
+                            <!-- Weekly Total -->
+                            <VerticalStackLayout
+                                Grid.Column="1"
+                                HorizontalOptions="End"
+                                Spacing="1">
+
+                                <Label Text="WEEK"
+                                       FontSize="10"
                                        FontAttributes="Bold"
-                                       FontSize="12" />
+                                       TextColor="{StaticResource TextMuted}"
+                                       HorizontalTextAlignment="End" />
 
-                            </Grid>
+                                <Label Text="{Binding WeeklyEarningsTotal, StringFormat='৳{0:0}'}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource PrimaryDarkColor}"
+                                       HorizontalTextAlignment="End" />
 
-                        </Frame>
+                            </VerticalStackLayout>
 
-                    </DataTemplate>
+                        </Grid>
 
-                </CollectionView.ItemTemplate>
 
-            </CollectionView>
+                        <!-- Chart -->
+                        <CollectionView
+                            ItemsSource="{Binding WeeklyEarnings}"
+                            SelectionMode="None"
+                            HeightRequest="165"
+                            HorizontalScrollBarVisibility="Never"
+                            VerticalScrollBarVisibility="Never">
 
-        </VerticalStackLayout>
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout
+                                    Orientation="Horizontal"
+                                    ItemSpacing="9" />
+                            </CollectionView.ItemsLayout>
 
-    </ScrollView>
+                            <CollectionView.ItemTemplate>
+
+                                <DataTemplate
+                                    x:DataType="models:WeeklyEarningPoint">
+
+                                    <Grid WidthRequest="36"
+                                          HeightRequest="155"
+                                          RowDefinitions="125,30">
+
+                                        <!-- Bar Area -->
+                                        <Grid Grid.Row="0"
+                                              VerticalOptions="End">
+
+                                            <Border
+                                                HeightRequest="{Binding BarHeight}"
+                                                WidthRequest="18"
+                                                BackgroundColor="{StaticResource PrimaryColor}"
+                                                StrokeThickness="0"
+                                                StrokeShape="RoundRectangle 9"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="End" />
+
+                                        </Grid>
+
+
+                                        <!-- Day -->
+                                        <Label Grid.Row="1"
+                                               Text="{Binding DayLabel}"
+                                               FontSize="11"
+                                               TextColor="{StaticResource TextSecondary}"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center" />
+
+                                    </Grid>
+
+                                </DataTemplate>
+
+                            </CollectionView.ItemTemplate>
+
+                        </CollectionView>
+
+                    </VerticalStackLayout>
+
+                </Frame>
+
+
+                <!-- ================= PERFORMANCE ================= -->
+
+                <Grid ColumnDefinitions="*,*"
+                      ColumnSpacing="12">
+
+                    <!-- Weekly -->
+                    <Frame Grid.Column="0"
+                           Style="{StaticResource CardFrameStyle}"
+                           Padding="16">
+
+                        <VerticalStackLayout Spacing="5">
+
+                            <Label Text="WEEKLY"
+                                   Style="{StaticResource CaptionLabelStyle}"
+                                   FontAttributes="Bold" />
+
+                            <Label Text="{Binding WeeklyEarningsTotal, StringFormat='৳{0:0}'}"
+                                   Style="{StaticResource StatValueStyle}"
+                                   FontSize="20" />
+
+                            <Label Text="Total this week"
+                                   Style="{StaticResource MutedLabelStyle}" />
+
+                        </VerticalStackLayout>
+
+                    </Frame>
+
+
+                    <!-- Average -->
+                    <Frame Grid.Column="1"
+                           Style="{StaticResource CardFrameStyle}"
+                           Padding="16">
+
+                        <VerticalStackLayout Spacing="5">
+
+                            <Label Text="AVERAGE"
+                                   Style="{StaticResource CaptionLabelStyle}"
+                                   FontAttributes="Bold" />
+
+                            <Label Text="{Binding AveragePerDelivery, StringFormat='৳{0:0}'}"
+                                   Style="{StaticResource StatValueStyle}"
+                                   FontSize="20" />
+
+                            <Label Text="Per delivery"
+                                   Style="{StaticResource MutedLabelStyle}" />
+
+                        </VerticalStackLayout>
+
+                    </Frame>
+
+                </Grid>
+
+
+                <!-- ================= RECENT EARNINGS ================= -->
+
+                <Grid ColumnDefinitions="*,Auto">
+
+                    <Label Grid.Column="0"
+           Text="Recent Earnings"
+           Style="{StaticResource SectionTitleStyle}" />
+
+                    <Label Grid.Column="1"
+           Text="Latest"
+           FontSize="12"
+           FontAttributes="Bold"
+           TextColor="{StaticResource PrimaryColor}"
+           VerticalOptions="Center" />
+
+                </Grid>
+
+                <Label Text="No recent earnings yet"
+       Style="{StaticResource MutedLabelStyle}"
+       HorizontalTextAlignment="Center"
+       Margin="0,6,0,2"
+       IsVisible="{Binding HasRecentEarnings, Converter={StaticResource InverseBoolConverter}}" />
+
+                <CollectionView
+    ItemsSource="{Binding RecentEarnings}"
+    SelectionMode="None"
+    ItemsLayout="VerticalList"
+    VerticalScrollBarVisibility="Never">
+
+                    <CollectionView.ItemTemplate>
+
+                        <DataTemplate
+            x:DataType="models:Earning">
+
+                            <Frame Style="{StaticResource CardFrameStyle}"
+                   Margin="0,4"
+                   Padding="14">
+
+                                <Grid ColumnDefinitions="*,Auto"
+                      RowDefinitions="Auto,Auto"
+                      RowSpacing="4">
+
+                                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Text="{Binding RestaurantName}"
+                           Style="{StaticResource BodyLabelStyle}"
+                           FontAttributes="Bold" />
+
+                                    <Label Grid.Row="0"
+                           Grid.Column="1"
+                           Text="{Binding Amount, StringFormat='+৳{0:0}'}"
+                           TextColor="{StaticResource SuccessColor}"
+                           FontAttributes="Bold"
+                           HorizontalTextAlignment="End" />
+
+                                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Text="{Binding AreaLabel}"
+                           Style="{StaticResource CaptionLabelStyle}" />
+
+                                    <Label Grid.Row="1"
+                           Grid.Column="1"
+                           Text="{Binding DateUtc, StringFormat='{0:dd MMM, hh:mm tt}'}"
+                           Style="{StaticResource MutedLabelStyle}"
+                           HorizontalTextAlignment="End" />
+
+                                </Grid>
+
+                            </Frame>
+
+                        </DataTemplate>
+
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+
+        <!-- ================= FLOATING NAVIGATION ================= -->
+
         <controls:FloatingGlassNavigation
-    VerticalOptions="End"
-    HorizontalOptions="Fill" />
+            VerticalOptions="End"
+            HorizontalOptions="Fill"
+            Margin="0,0,0,30"/>
+
     </Grid>
 
 </ContentPage>

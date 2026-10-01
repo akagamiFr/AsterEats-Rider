@@ -86,13 +86,15 @@ public class HomeViewModel : BaseViewModel
 
         if (Rider.IsOnline)
         {
+            // Create a delivery request
+            // but stay on the Home page.
             ActiveDelivery = _dataService.CreateDeliveryRequest();
-
-            await Shell.Current.GoToAsync("deliveryrequest");
         }
         else
         {
+            // Go offline and remove the current delivery request.
             ActiveDelivery = null;
+
             _dataService.SetCurrentDelivery(null);
         }
     }

@@ -13,14 +13,15 @@ public class DeliveriesViewModel : BaseViewModel
     public DeliveriesViewModel(MockDataService dataService)
     {
         _dataService = dataService;
-        LoadDeliveries();
     }
 
     public void LoadDeliveries()
     {
+        var deliveries = _dataService.GetDeliveryHistory();
+
         Deliveries.Clear();
 
-        foreach (var delivery in _dataService.GetDeliveryHistory())
+        foreach (var delivery in deliveries)
         {
             Deliveries.Add(delivery);
         }

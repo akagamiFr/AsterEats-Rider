@@ -15,7 +15,8 @@
                  Color="#66000000" />
 
         <!-- Bottom Sheet -->
-        <Border Grid.Row="1"
+        <Border x:Name="BottomSheet"
+                Grid.Row="1"
                 BackgroundColor="{StaticResource AppBackground}"
                 StrokeThickness="0"
                 Padding="22,24,22,28">
@@ -23,6 +24,14 @@
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="26,26,0,0" />
             </Border.StrokeShape>
+
+            <Border.GestureRecognizers>
+
+                <!-- Drag the whole request sheet -->
+                <PanGestureRecognizer
+                    PanUpdated="OnBottomSheetPanUpdated" />
+
+            </Border.GestureRecognizers>
 
             <VerticalStackLayout Spacing="18">
 
@@ -58,6 +67,7 @@
                         <Label Text="{Binding Delivery.DistanceKm, StringFormat='{0:0.0} km'}"
                                TextColor="{StaticResource PrimaryDarkColor}"
                                FontAttributes="Bold" />
+
                     </Border>
 
                 </Grid>

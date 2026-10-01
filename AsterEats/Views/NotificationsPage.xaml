@@ -25,7 +25,8 @@
                     BackgroundColor="White"
                     StrokeThickness="0"
                     StrokeShape="RoundRectangle 22"
-                    HorizontalOptions="Start">
+                    HorizontalOptions="Start"
+                    Margin="0,30,0,0">
 
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Tapped="BackButton_Clicked" />
@@ -54,7 +55,8 @@
                    FontSize="24"
                    FontAttributes="Bold"
                    TextColor="#278E90"
-                   VerticalOptions="Center" />
+                   VerticalOptions="Center"
+                   Margin="0,30,0,0"/>
 
         </Grid>
 

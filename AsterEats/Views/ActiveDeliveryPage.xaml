@@ -85,6 +85,9 @@
                         Stroke="#E3E8E8"
                         StrokeThickness="1"
                         Padding="18">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20" />
+                    </Border.StrokeShape>
 
                     <VerticalStackLayout Spacing="6">
 
@@ -111,6 +114,9 @@
                         Stroke="#E3E8E8"
                         StrokeThickness="1"
                         Padding="18">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20" />
+                    </Border.StrokeShape>
 
                     <VerticalStackLayout Spacing="6">
 
@@ -137,6 +143,9 @@
                         Stroke="#E3E8E8"
                         StrokeThickness="1"
                         Padding="18">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20" />
+                    </Border.StrokeShape>
 
                     <Grid ColumnDefinitions="*,*,*"
                           ColumnSpacing="10">

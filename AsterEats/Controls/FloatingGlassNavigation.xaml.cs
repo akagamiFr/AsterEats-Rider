@@ -9,13 +9,7 @@ public partial class FloatingGlassNavigation : ContentView
 
     private bool _isDragging;
     private bool _isNavigating;
-
     private bool _isLoaded;
-
-
-    // =========================================================
-    // CONSTRUCTOR
-    // =========================================================
 
     public FloatingGlassNavigation()
     {
@@ -26,12 +20,7 @@ public partial class FloatingGlassNavigation : ContentView
         SizeChanged += OnNavigationSizeChanged;
     }
 
-
-    // =========================================================
-    // LOADED
-    // =========================================================
-
-    private async void OnNavigationLoaded(
+    private void OnNavigationLoaded(
         object? sender,
         EventArgs e)
     {
@@ -40,80 +29,46 @@ public partial class FloatingGlassNavigation : ContentView
 
         _isLoaded = true;
 
-        // Listen for Shell navigation changes
-        if (Shell.Current != null)
+        if (Shell.Current is AppShell appShell)
         {
-            Shell.Current.Navigated += OnShellNavigated;
+            appShell.MainTabChanged += OnMainTabChanged;
         }
 
-        // Detect current page
-        DetectCurrentPage();
+        SyncWithCurrentTab();
 
-        await Task.Delay(80);
-
-        if (!_isDragging)
-        {
-            SetSelectionPosition(_selectedIndex);
-        }
+        SetSelectionPosition(_selectedIndex);
     }
-
-
-    // =========================================================
-    // UNLOADED
-    // =========================================================
-
     private void OnNavigationUnloaded(
-        object? sender,
-        EventArgs e)
+      object? sender,
+      EventArgs e)
+    {
+        _isLoaded = false;
+    }
+
+    private void OnMainTabChanged(int index)
     {
         if (!_isLoaded)
             return;
 
-        _isLoaded = false;
+        _selectedIndex = index;
 
-        if (Shell.Current != null)
+        // Immediately move the indicator
+        // to the newly selected page.
+        SetSelectionPosition(_selectedIndex);
+    }
+
+    private void SyncWithCurrentTab()
+    {
+        if (Shell.Current is AppShell appShell)
         {
-            Shell.Current.Navigated -= OnShellNavigated;
+            _selectedIndex =
+                appShell.GetCurrentMainTabIndex();
+        }
+        else
+        {
+            DetectCurrentPage();
         }
     }
-
-
-    // =========================================================
-    // SHELL NAVIGATION EVENT
-    // =========================================================
-
-    private async void OnShellNavigated(
-        object? sender,
-        ShellNavigatedEventArgs e)
-    {
-        if (!_isLoaded)
-            return;
-
-        // Give Shell enough time to finish changing page
-        await Task.Delay(60);
-
-        if (!_isLoaded)
-            return;
-
-        if (_isDragging)
-            return;
-
-        DetectCurrentPage();
-
-        await Task.Delay(20);
-
-        if (!_isLoaded)
-            return;
-
-        // Animate glass to actual current page
-        await AnimateToIndex(
-            _selectedIndex);
-    }
-
-
-    // =========================================================
-    // DETECT CURRENT PAGE
-    // =========================================================
 
     private void DetectCurrentPage()
     {
@@ -128,7 +83,6 @@ public partial class FloatingGlassNavigation : ContentView
             _selectedIndex = 0;
             return;
         }
-
 
         if (location.Contains(
             "/deliveries",
@@ -154,11 +108,6 @@ public partial class FloatingGlassNavigation : ContentView
         }
     }
 
-
-    // =========================================================
-    // SIZE CHANGED
-    // =========================================================
-
     private void OnNavigationSizeChanged(
         object? sender,
         EventArgs e)
@@ -166,129 +115,67 @@ public partial class FloatingGlassNavigation : ContentView
         if (GlassBar.Width <= 0)
             return;
 
-        if (_isDragging)
+        if (_isDragging || _isNavigating)
             return;
 
-        SetSelectionPosition(
-            _selectedIndex);
+        SetSelectionPosition(_selectedIndex);
     }
-
-
-    // =========================================================
-    // HOME TAP
-    // =========================================================
 
     private async void OnHomeTapped(
         object sender,
         TappedEventArgs e)
     {
-        await NavigateToTab(
-            "home",
-            0);
+        await NavigateToTab(0);
     }
-
-
-    // =========================================================
-    // DELIVERIES TAP
-    // =========================================================
 
     private async void OnDeliveriesTapped(
         object sender,
         TappedEventArgs e)
     {
-        await NavigateToTab(
-            "deliveries",
-            1);
+        await NavigateToTab(1);
     }
-
-
-    // =========================================================
-    // EARNINGS TAP
-    // =========================================================
 
     private async void OnEarningsTapped(
         object sender,
         TappedEventArgs e)
     {
-        await NavigateToTab(
-            "earnings",
-            2);
+        await NavigateToTab(2);
     }
-
-
-    // =========================================================
-    // PROFILE TAP
-    // =========================================================
 
     private async void OnProfileTapped(
         object sender,
         TappedEventArgs e)
     {
-        await NavigateToTab(
-            "profile",
-            3);
+        await NavigateToTab(3);
     }
-
-
-    // =========================================================
-    // HOME PAN
-    // =========================================================
 
     private void OnHomePanUpdated(
         object? sender,
         PanUpdatedEventArgs e)
     {
-        HandlePan(
-            e,
-            0);
+        HandlePan(e, 0);
     }
-
-
-    // =========================================================
-    // DELIVERIES PAN
-    // =========================================================
 
     private void OnDeliveriesPanUpdated(
         object? sender,
         PanUpdatedEventArgs e)
     {
-        HandlePan(
-            e,
-            1);
+        HandlePan(e, 1);
     }
-
-
-    // =========================================================
-    // EARNINGS PAN
-    // =========================================================
 
     private void OnEarningsPanUpdated(
         object? sender,
         PanUpdatedEventArgs e)
     {
-        HandlePan(
-            e,
-            2);
+        HandlePan(e, 2);
     }
-
-
-    // =========================================================
-    // PROFILE PAN
-    // =========================================================
 
     private void OnProfilePanUpdated(
         object? sender,
         PanUpdatedEventArgs e)
     {
-        HandlePan(
-            e,
-            3);
+        HandlePan(e, 3);
     }
-
-
-    // =========================================================
-    // HANDLE PAN
-    // =========================================================
 
     private void HandlePan(
         PanUpdatedEventArgs e,
@@ -300,39 +187,27 @@ public partial class FloatingGlassNavigation : ContentView
         if (_isNavigating)
             return;
 
-
         double columnWidth =
             GetColumnWidth();
 
-
         switch (e.StatusType)
         {
-            // =================================================
-            // START
-            // =================================================
-
             case GestureStatus.Started:
 
                 _isDragging = true;
 
-
                 double startPosition =
-                    startingIndex *
-                    columnWidth;
+                    startingIndex * columnWidth;
 
+                _dragStartX = startPosition;
+                _currentTranslationX = startPosition;
 
-                SelectionIndicator
-                    .TranslationX =
+                SelectionIndicator.CancelAnimations();
+
+                SelectionIndicator.TranslationX =
                     startPosition;
 
-
-                _dragStartX =
-                    startPosition;
-
-
-                _currentTranslationX =
-                    startPosition;
-
+                SelectionIndicator.Scale = 0.94;
 
                 _ = SelectionIndicator.ScaleTo(
                     0.94,
@@ -341,25 +216,16 @@ public partial class FloatingGlassNavigation : ContentView
 
                 break;
 
-
-            // =================================================
-            // RUNNING
-            // =================================================
-
             case GestureStatus.Running:
 
                 if (!_isDragging)
                     return;
 
-
                 double newX =
-                    _dragStartX +
-                    e.TotalX;
-
+                    _dragStartX + e.TotalX;
 
                 double maxX =
                     columnWidth * 3;
-
 
                 newX = Math.Max(
                     0,
@@ -367,42 +233,24 @@ public partial class FloatingGlassNavigation : ContentView
                         maxX,
                         newX));
 
+                _currentTranslationX = newX;
 
-                _currentTranslationX =
-                    newX;
-
-
-                SelectionIndicator
-                    .TranslationX =
+                SelectionIndicator.TranslationX =
                     newX;
 
                 break;
-
-
-            // =================================================
-            // COMPLETED
-            // =================================================
 
             case GestureStatus.Completed:
 
                 if (!_isDragging)
                     return;
 
-
                 _isDragging = false;
-
-
-                _ = SelectionIndicator.ScaleTo(
-                    1.0,
-                    100,
-                    Easing.CubicOut);
-
 
                 int nearestIndex =
                     (int)Math.Round(
                         _currentTranslationX /
                         columnWidth);
-
 
                 nearestIndex =
                     Math.Max(
@@ -411,43 +259,21 @@ public partial class FloatingGlassNavigation : ContentView
                             3,
                             nearestIndex));
 
-
-                _ = CompleteDrag(
-                    nearestIndex);
+                _ = CompleteDrag(nearestIndex);
 
                 break;
-
-
-            // =================================================
-            // CANCELED
-            // =================================================
 
             case GestureStatus.Canceled:
 
                 _isDragging = false;
 
-
-                _ = SelectionIndicator.ScaleTo(
-                    1.0,
-                    100,
-                    Easing.CubicOut);
-
-
-                SetSelectionPosition(
-                    _selectedIndex);
+                _ = ReturnGlassToSelectedPosition();
 
                 break;
         }
     }
 
-
-    // =========================================================
-    // NORMAL TAP NAVIGATION
-    // =========================================================
-
-    private async Task NavigateToTab(
-        string route,
-        int index)
+    private async Task NavigateToTab(int index)
     {
         if (_isNavigating)
             return;
@@ -455,38 +281,32 @@ public partial class FloatingGlassNavigation : ContentView
         if (_isDragging)
             return;
 
+        if (Shell.Current is not AppShell appShell)
+            return;
+
         if (_selectedIndex == index)
             return;
 
-
         _isNavigating = true;
-
 
         try
         {
-            // Immediately remember target page
             _selectedIndex = index;
 
+            // Animate the glass indicator first.
+            await AnimateToIndex(index);
 
-            // Smoothly move glass
-            await AnimateToIndex(
-                index);
-
-
-            // Navigate
-            await Shell.Current.GoToAsync(
-                $"//main/{route}");
+            // Navigate immediately after animation.
+            await appShell.SelectMainTab(index);
         }
         catch (Exception ex)
         {
             System.Diagnostics.Debug.WriteLine(
-                $"Navigation error: {ex.Message}");
+                $"Tab navigation error: {ex.Message}");
 
-            // Restore actual route if navigation fails
-            DetectCurrentPage();
+            SyncWithCurrentTab();
 
-            SetSelectionPosition(
-                _selectedIndex);
+            SetSelectionPosition(_selectedIndex);
         }
         finally
         {
@@ -494,54 +314,34 @@ public partial class FloatingGlassNavigation : ContentView
         }
     }
 
-
-    // =========================================================
-    // COMPLETE DRAG
-    // =========================================================
-
-    private async Task CompleteDrag(
-        int index)
+    private async Task CompleteDrag(int index)
     {
-        string route = index switch
-        {
-            0 => "home",
-            1 => "deliveries",
-            2 => "earnings",
-            3 => "profile",
-            _ => "home"
-        };
-
-
-        // Remember selected destination
-        _selectedIndex = index;
-
-
-        // Smooth snap
-        await AnimateToIndex(
-            index);
-
+        if (Shell.Current is not AppShell appShell)
+            return;
 
         if (_isNavigating)
             return;
 
-
         _isNavigating = true;
-
 
         try
         {
-            await Shell.Current.GoToAsync(
-                $"//main/{route}");
+            _selectedIndex = index;
+
+            // Finish glass movement first.
+            await AnimateToIndex(index);
+
+            // Then navigate.
+            await appShell.SelectMainTab(index);
         }
         catch (Exception ex)
         {
             System.Diagnostics.Debug.WriteLine(
-                $"Navigation error: {ex.Message}");
+                $"Drag navigation error: {ex.Message}");
 
-            DetectCurrentPage();
+            SyncWithCurrentTab();
 
-            SetSelectionPosition(
-                _selectedIndex);
+            SetSelectionPosition(_selectedIndex);
         }
         finally
         {
@@ -549,107 +349,96 @@ public partial class FloatingGlassNavigation : ContentView
         }
     }
 
+    private async Task ReturnGlassToSelectedPosition()
+    {
+        if (GlassBar.Width <= 0)
+            return;
 
-    // =========================================================
-    // COLUMN WIDTH
-    // =========================================================
+        await AnimateToIndex(_selectedIndex);
+    }
 
     private double GetColumnWidth()
     {
         const double horizontalPadding = 8;
 
-
         double availableWidth =
             GlassBar.Width -
             (horizontalPadding * 2);
 
-
         return availableWidth / 4;
     }
 
-
-    // =========================================================
-    // SET POSITION
-    // =========================================================
-
-    private void SetSelectionPosition(
-        int index)
+    private void SetSelectionPosition(int index)
     {
         if (GlassBar.Width <= 0)
             return;
 
-
         double columnWidth =
             GetColumnWidth();
 
+        SelectionIndicator.CancelAnimations();
 
         SelectionIndicator.WidthRequest =
             columnWidth - 4;
 
-
         double targetX =
             index * columnWidth;
 
-
-        SelectionIndicator
-            .TranslationX =
+        SelectionIndicator.TranslationX =
             targetX;
 
+        SelectionIndicator.Scale = 1.0;
 
         _currentTranslationX =
             targetX;
     }
 
-
-    // =========================================================
-    // SMOOTH ANIMATION
-    // =========================================================
-
-    private async Task AnimateToIndex(
-        int index)
+    private async Task AnimateToIndex(int index)
     {
         if (GlassBar.Width <= 0)
             return;
 
-
         double columnWidth =
             GetColumnWidth();
-
 
         SelectionIndicator.WidthRequest =
             columnWidth - 4;
 
-
         double targetX =
             index * columnWidth;
 
-
-        // Cancel previous animation
         SelectionIndicator.CancelAnimations();
 
+        SelectionIndicator.Scale = 0.94;
 
-        // Smooth slide
-        await SelectionIndicator.TranslateTo(
-            targetX,
-            0,
-            320,
-            Easing.CubicInOut);
+        Task moveTask =
+            SelectionIndicator.TranslateTo(
+                targetX,
+                0,
+                180,
+                Easing.CubicOut);
 
+        Task bubbleTask =
+            SelectionIndicator.ScaleTo(
+                1.04,
+                110,
+                Easing.CubicOut);
+
+        await Task.WhenAll(
+            moveTask,
+            bubbleTask);
 
         _currentTranslationX =
             targetX;
 
-
-        // Small glass press effect
         await SelectionIndicator.ScaleTo(
-            0.96,
-            60,
-            Easing.CubicOut);
-
+            0.98,
+            45,
+            Easing.CubicInOut);
 
         await SelectionIndicator.ScaleTo(
             1.0,
-            120,
-            Easing.CubicInOut);
+            65,
+            Easing.CubicOut);
     }
 }

@@ -19,7 +19,8 @@
 
             <Label Text="Deliveries"
                    Style="{StaticResource ScreenTitleStyle}"
-                   TextColor="#36ABAD"/>
+                   TextColor="#36ABAD"
+                   Margin="0,30,0,0"/>
 
             <Label Text="Your completed delivery history"
                    Style="{StaticResource CaptionLabelStyle}" />
@@ -108,7 +109,8 @@
         <controls:FloatingGlassNavigation
             Grid.Row="2"
             VerticalOptions="End"
-            HorizontalOptions="Fill" />
+            HorizontalOptions="Fill"
+            Margin="0,0,0,30"/>
 
     </Grid>
 

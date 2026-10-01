@@ -34,11 +34,13 @@
         <!-- HOME -->
 
         <Tab
+            x:Name="HomeTab"
             Title="Home"
             Route="home"
             Icon="icon_home.svg">
 
             <ShellContent
+                x:Name="HomeShellContent"
                 ContentTemplate="{DataTemplate views:HomePage}"
                 Shell.NavBarIsVisible="False"
                 Shell.TabBarIsVisible="False" />
@@ -49,11 +51,13 @@
         <!-- DELIVERIES -->
 
         <Tab
+            x:Name="DeliveriesTab"
             Title="Deliveries"
             Route="deliveries"
             Icon="icon_delivery.svg">
 
             <ShellContent
+                x:Name="DeliveriesShellContent"
                 ContentTemplate="{DataTemplate views:DeliveriesPage}"
                 Shell.NavBarIsVisible="False"
                 Shell.TabBarIsVisible="False" />
@@ -64,11 +68,13 @@
         <!-- EARNINGS -->
 
         <Tab
+            x:Name="EarningsTab"
             Title="Earnings"
             Route="earnings"
             Icon="icon_wallet.svg">
 
             <ShellContent
+                x:Name="EarningsShellContent"
                 ContentTemplate="{DataTemplate views:EarningsPage}"
                 Shell.NavBarIsVisible="False"
                 Shell.TabBarIsVisible="False" />
@@ -79,11 +85,13 @@
         <!-- PROFILE -->
 
         <Tab
+            x:Name="ProfileTab"
             Title="Profile"
             Route="profile"
             Icon="icon_profile.svg">
 
             <ShellContent
+                x:Name="ProfileShellContent"
                 ContentTemplate="{DataTemplate views:ProfilePage}"
                 Shell.NavBarIsVisible="False"
                 Shell.TabBarIsVisible="False" />

@@ -10,6 +10,7 @@ public class MockDataService
 {
     private readonly Rider _currentRider;
     private readonly List<Earning> _earnings;
+    private readonly List<Earning> _recentEarnings;
     private readonly List<DeliveryOrder> _history;
     private readonly List<Notification> _notifications;
 
@@ -32,6 +33,9 @@ public class MockDataService
 
         var today = DateTime.UtcNow.Date;
 
+        // Main earnings data.
+        // These are used for total earnings, today's earnings,
+        // and the weekly chart.
         _earnings = new List<Earning>
         {
             new() { Id = 1, DeliveryOrderId = 101, RestaurantName = "Aster Kitchen", AreaLabel = "Dhanmondi", Amount = 80, DateUtc = today.AddHours(9) },
@@ -47,6 +51,10 @@ public class MockDataService
             new() { Id = 10, DeliveryOrderId = 110, RestaurantName = "Noodle Bar", AreaLabel = "Elephant Rd", Amount = 590, DateUtc = today.AddDays(-2) },
             new() { Id = 11, DeliveryOrderId = 111, RestaurantName = "Aster Kitchen", AreaLabel = "Dhanmondi", Amount = 705, DateUtc = today.AddDays(-3) }
         };
+
+        // Recent Earnings starts empty.
+        // A new item will be added after a delivery is completed.
+        _recentEarnings = new List<Earning>();
 
         _history = new List<DeliveryOrder>
         {
@@ -166,6 +174,13 @@ public class MockDataService
             .ToList();
     }
 
+    public List<Earning> GetRecentEarnings()
+    {
+        return _recentEarnings
+            .OrderByDescending(e => e.DateUtc)
+            .ToList();
+    }
+
     public List<DeliveryOrder> GetDeliveryHistory()
     {
         return _history
@@ -265,6 +280,7 @@ public class MockDataService
         order.Status = DeliveryStatus.Delivered;
         order.CompletedAtUtc = DateTime.UtcNow;
 
+        // Add completed delivery to history.
         _history.Add(order);
 
         var earning = new Earning
@@ -277,7 +293,11 @@ public class MockDataService
             DateUtc = DateTime.UtcNow
         };
 
+        // Add to main earnings.
         _earnings.Add(earning);
+
+        // Add to recent earnings.
+        _recentEarnings.Add(earning);
 
         _currentDelivery = null;
 

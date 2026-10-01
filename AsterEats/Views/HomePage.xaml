@@ -13,12 +13,12 @@
         <!-- Food Delivery Background Illustration -->
         <Image Source="food_delivery_rider.svg"
                Aspect="AspectFit"
-               WidthRequest="500"
+               WidthRequest="495"
                HeightRequest="500"
                Opacity="0.3"
                HorizontalOptions="End"
                VerticalOptions="End"
-               Margin="0,0,0,117" />
+               Margin="0,0,0,165" />
 
         <!-- Existing Home Page Content -->
         <ScrollView>
@@ -29,7 +29,8 @@
                 <Grid ColumnDefinitions="*,Auto">
 
                     <HorizontalStackLayout Spacing="0"
-                                           HorizontalOptions="Start">
+                                           HorizontalOptions="Start"
+                                            Margin="0,30,0,0">
 
                         <Label Text="Aster"
                                Style="{StaticResource ScreenTitleStyle}"
@@ -191,38 +192,67 @@
                 <!-- Today's Summary -->
                 <Frame Style="{StaticResource CardFrameStyle}">
 
-                    <VerticalStackLayout Spacing="12">
+                    <Grid ColumnDefinitions="*,Auto"
+          ColumnSpacing="12">
 
-                        <Label Text="Today's Summary"
-                               Style="{StaticResource SectionTitleStyle}" />
+                        <!-- Summary Content -->
+                        <VerticalStackLayout
+            Grid.Column="0"
+            Spacing="12">
 
-                        <Grid ColumnDefinitions="*,*">
+                            <Label Text="Today's Summary"
+                   Style="{StaticResource SectionTitleStyle}" />
 
-                            <VerticalStackLayout Grid.Column="0"
-                                                 Spacing="2">
+                            <Grid ColumnDefinitions="*,*">
 
-                                <Label Text="Deliveries"
-                                       Style="{StaticResource CaptionLabelStyle}" />
+                                <VerticalStackLayout
+                    Grid.Column="0"
+                    Spacing="2">
 
-                                <Label Text="{Binding TodayDeliveryCount}"
-                                       Style="{StaticResource StatValueStyle}" />
+                                    <Label Text="Deliveries"
+                           Style="{StaticResource CaptionLabelStyle}" />
 
-                            </VerticalStackLayout>
+                                    <Label Text="{Binding TodayDeliveryCount}"
+                           Style="{StaticResource StatValueStyle}" />
 
-                            <VerticalStackLayout Grid.Column="1"
-                                                 Spacing="2">
+                                </VerticalStackLayout>
 
-                                <Label Text="Earnings"
-                                       Style="{StaticResource CaptionLabelStyle}" />
+                                <VerticalStackLayout
+                    Grid.Column="1"
+                    Spacing="2">
 
-                                <Label Text="{Binding TodayEarningsAmount, StringFormat='৳{0:0}'}"
-                                       Style="{StaticResource StatValueStyle}" />
+                                    <Label Text="Earnings"
+                           Style="{StaticResource CaptionLabelStyle}" />
 
-                            </VerticalStackLayout>
+                                    <Label Text="{Binding TodayEarningsAmount, StringFormat='৳{0:0}'}"
+                           Style="{StaticResource StatValueStyle}" />
 
-                        </Grid>
+                                </VerticalStackLayout>
 
-                    </VerticalStackLayout>
+                            </Grid>
+
+                        </VerticalStackLayout>
+
+                        <!-- Summary Image -->
+                        <Border Grid.Column="1"
+                WidthRequest="75"
+                HeightRequest="75"
+                BackgroundColor="#FFFFFF"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 18"
+                VerticalOptions="Center"
+                Padding="8">
+
+                            <Image Source="summary_icon.webp"
+                   WidthRequest="70"
+                   HeightRequest="70"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+
+                        </Border>
+
+                    </Grid>
 
                 </Frame>
 
@@ -230,30 +260,66 @@
                 <!-- Current Delivery -->
                 <Frame Style="{StaticResource CardFrameStyle}">
 
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer
+            Tapped="OnCurrentDeliveryTapped" />
+                    </Frame.GestureRecognizers>
+
                     <VerticalStackLayout Spacing="10">
 
+                        <!-- Section Title -->
                         <Label Text="Current Delivery"
-                               Style="{StaticResource SectionTitleStyle}" />
+               Style="{StaticResource SectionTitleStyle}" />
 
+                        <!-- No Active Delivery -->
                         <Label Text="No active delivery"
-                               Style="{StaticResource MutedLabelStyle}"
-                               IsVisible="{Binding HasActiveDelivery, Converter={StaticResource InverseBoolConverter}}" />
+               Style="{StaticResource MutedLabelStyle}"
+               IsVisible="{Binding HasActiveDelivery, Converter={StaticResource InverseBoolConverter}}" />
 
-                        <VerticalStackLayout Spacing="4"
-                                             IsVisible="{Binding HasActiveDelivery}">
+                        <!-- Active Delivery -->
+                        <Grid ColumnDefinitions="*,Auto"
+              ColumnSpacing="12"
+              IsVisible="{Binding HasActiveDelivery}">
 
-                            <Label Text="{Binding ActiveDelivery.Restaurant.Name}"
-                                   Style="{StaticResource BodyLabelStyle}"
-                                   FontAttributes="Bold" />
+                            <!-- Delivery Information -->
+                            <VerticalStackLayout
+                Grid.Column="0"
+                Spacing="4"
+                VerticalOptions="Center">
 
-                            <Label Text="{Binding ActiveDelivery.DeliveryAddress}"
-                                   Style="{StaticResource CaptionLabelStyle}" />
+                                <Label Text="{Binding ActiveDelivery.Restaurant.Name}"
+                       Style="{StaticResource BodyLabelStyle}"
+                       FontAttributes="Bold" />
 
-                            <Label Text="{Binding ActiveDelivery.StatusText}"
-                                   Style="{StaticResource CaptionLabelStyle}"
-                                   TextColor="{StaticResource PrimaryDarkColor}" />
+                                <Label Text="{Binding ActiveDelivery.DeliveryAddress}"
+                       Style="{StaticResource CaptionLabelStyle}" />
 
-                        </VerticalStackLayout>
+                                <Label Text="{Binding ActiveDelivery.StatusText}"
+                       Style="{StaticResource CaptionLabelStyle}"
+                       TextColor="{StaticResource PrimaryDarkColor}" />
+
+                            </VerticalStackLayout>
+
+                            <!-- Food Image -->
+                            <Border Grid.Column="1"
+                    WidthRequest="75"
+                    HeightRequest="75"
+                    BackgroundColor="#FFFFFF"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 18"
+                    Padding="4"
+                    VerticalOptions="Center">
+
+                                <Image Source="food_delivery.webp"
+                       WidthRequest="78"
+                       HeightRequest="78"
+                       Aspect="AspectFill"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+
+                            </Border>
+
+                        </Grid>
 
                     </VerticalStackLayout>
 
@@ -264,7 +330,8 @@
         <controls:FloatingGlassNavigation
     Grid.Row="0"
     VerticalOptions="End"
-    HorizontalOptions="Fill" />
+    HorizontalOptions="Fill" 
+            Margin="0,0,0,30"/>
 
     </Grid>
 
