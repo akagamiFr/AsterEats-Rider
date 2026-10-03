@@ -10,15 +10,18 @@
 
     <Grid RowDefinitions="Auto,*,Auto">
 
-        <!-- Header -->
+        <!-- ==================== HEADER ==================== -->
+
         <Grid Grid.Row="0"
-              Padding="20,18"
-              ColumnDefinitions="*,Auto">
+              Padding="18,10,18,6"
+              ColumnDefinitions="*,Auto"
+              ColumnSpacing="10">
 
             <VerticalStackLayout Spacing="2">
 
                 <Label Text="Active Delivery"
-                       Style="{StaticResource ScreenTitleStyle}" />
+                       Style="{StaticResource ScreenTitleStyle}"
+                        Margin="0,40,0,0"/>
 
                 <Label Text="{Binding Delivery.Restaurant.Name}"
                        Style="{StaticResource CaptionLabelStyle}" />
@@ -28,7 +31,8 @@
             <Border Grid.Column="1"
                     BackgroundColor="#E8F7F7"
                     StrokeThickness="0"
-                    Padding="11,8">
+                    Padding="10,6"
+                    VerticalOptions="Center">
 
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="12" />
@@ -37,42 +41,45 @@
                 <Label Text="{Binding Delivery.StatusText}"
                        TextColor="{StaticResource PrimaryDarkColor}"
                        FontAttributes="Bold"
-                       FontSize="12" />
+                       FontSize="11" />
 
             </Border>
 
         </Grid>
 
+
+        <!-- ==================== DELIVERY CONTENT ==================== -->
+
         <ScrollView Grid.Row="1">
 
-            <VerticalStackLayout Padding="20,10,20,25"
-                                 Spacing="18">
+            <VerticalStackLayout Padding="16,8,16,16"
+                                 Spacing="10">
 
                 <!-- Status -->
                 <Border BackgroundColor="{StaticResource PrimaryColor}"
                         StrokeThickness="0"
-                        Padding="22">
+                        Padding="16">
 
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="22" />
+                        <RoundRectangle CornerRadius="18" />
                     </Border.StrokeShape>
 
-                    <VerticalStackLayout Spacing="8">
+                    <VerticalStackLayout Spacing="5">
 
                         <Label Text="DELIVERY STATUS"
                                TextColor="White"
-                               FontSize="12"
+                               FontSize="11"
                                FontAttributes="Bold"
                                Opacity="0.8" />
 
                         <Label Text="{Binding StatusTitle}"
                                TextColor="White"
-                               FontSize="28"
+                               FontSize="24"
                                FontAttributes="Bold" />
 
                         <Label Text="{Binding StatusDescription}"
                                TextColor="White"
-                               FontSize="14"
+                               FontSize="13"
                                LineBreakMode="WordWrap"
                                Opacity="0.95" />
 
@@ -80,108 +87,130 @@
 
                 </Border>
 
+
                 <!-- Restaurant -->
                 <Border BackgroundColor="White"
                         Stroke="#E3E8E8"
                         StrokeThickness="1"
-                        Padding="18">
+                        Padding="14">
+
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="20" />
+                        <RoundRectangle CornerRadius="16" />
                     </Border.StrokeShape>
 
-                    <VerticalStackLayout Spacing="6">
+                    <VerticalStackLayout Spacing="4">
 
                         <Label Text="PICKUP"
                                Style="{StaticResource CaptionLabelStyle}"
                                TextColor="{StaticResource PrimaryDarkColor}"
-                               FontAttributes="Bold" />
+                               FontAttributes="Bold"
+                               FontSize="11" />
 
                         <Label Text="{Binding Delivery.Restaurant.Name}"
-                               Style="{StaticResource SectionTitleStyle}" />
+                               Style="{StaticResource SectionTitleStyle}"
+                               FontSize="15" />
 
                         <Label Text="{Binding Delivery.Restaurant.Address}"
-                               Style="{StaticResource BodyLabelStyle}" />
+                               Style="{StaticResource BodyLabelStyle}"
+                               FontSize="14"
+                               LineBreakMode="TailTruncation" />
 
                         <Label Text="{Binding Delivery.Restaurant.Phone}"
-                               Style="{StaticResource CaptionLabelStyle}" />
+                               Style="{StaticResource CaptionLabelStyle}"
+                               FontSize="12" />
 
                     </VerticalStackLayout>
 
                 </Border>
+
 
                 <!-- Customer -->
                 <Border BackgroundColor="White"
                         Stroke="#E3E8E8"
                         StrokeThickness="1"
-                        Padding="18">
+                        Padding="14">
+
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="20" />
+                        <RoundRectangle CornerRadius="16" />
                     </Border.StrokeShape>
 
-                    <VerticalStackLayout Spacing="6">
+                    <VerticalStackLayout Spacing="4">
 
                         <Label Text="DROP-OFF"
                                Style="{StaticResource CaptionLabelStyle}"
                                TextColor="{StaticResource PrimaryDarkColor}"
-                               FontAttributes="Bold" />
+                               FontAttributes="Bold"
+                               FontSize="11" />
 
                         <Label Text="{Binding Delivery.CustomerName}"
-                               Style="{StaticResource SectionTitleStyle}" />
+                               Style="{StaticResource SectionTitleStyle}"
+                               FontSize="15" />
 
                         <Label Text="{Binding Delivery.CustomerPhone}"
-                               Style="{StaticResource BodyLabelStyle}" />
+                               Style="{StaticResource BodyLabelStyle}"
+                               FontSize="14" />
 
                         <Label Text="{Binding Delivery.DeliveryAddress}"
-                               Style="{StaticResource CaptionLabelStyle}" />
+                               Style="{StaticResource CaptionLabelStyle}"
+                               FontSize="12"
+                               LineBreakMode="TailTruncation" />
 
                     </VerticalStackLayout>
 
                 </Border>
 
-                <!-- Delivery summary -->
+
+                <!-- Delivery Summary -->
                 <Border BackgroundColor="White"
                         Stroke="#E3E8E8"
                         StrokeThickness="1"
-                        Padding="18">
+                        Padding="14">
+
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="20" />
+                        <RoundRectangle CornerRadius="16" />
                     </Border.StrokeShape>
 
                     <Grid ColumnDefinitions="*,*,*"
-                          ColumnSpacing="10">
+                          ColumnSpacing="8">
 
-                        <VerticalStackLayout Spacing="3">
+                        <VerticalStackLayout Spacing="2">
 
                             <Label Text="DISTANCE"
-                                   Style="{StaticResource CaptionLabelStyle}" />
+                                   Style="{StaticResource CaptionLabelStyle}"
+                                   FontSize="10" />
 
                             <Label Text="{Binding Delivery.DistanceKm, StringFormat='{0:0.0} km'}"
                                    Style="{StaticResource BodyLabelStyle}"
-                                   FontAttributes="Bold" />
+                                   FontAttributes="Bold"
+                                   FontSize="14" />
 
                         </VerticalStackLayout>
 
                         <VerticalStackLayout Grid.Column="1"
-                                             Spacing="3">
+                                             Spacing="2">
 
                             <Label Text="ORDER"
-                                   Style="{StaticResource CaptionLabelStyle}" />
+                                   Style="{StaticResource CaptionLabelStyle}"
+                                   FontSize="10" />
 
                             <Label Text="{Binding Delivery.OrderAmount, StringFormat='৳{0:0}'}"
                                    Style="{StaticResource BodyLabelStyle}"
-                                   FontAttributes="Bold" />
+                                   FontAttributes="Bold"
+                                   FontSize="14" />
 
                         </VerticalStackLayout>
 
                         <VerticalStackLayout Grid.Column="2"
-                                             Spacing="3">
+                                             Spacing="2">
 
                             <Label Text="FEE"
-                                   Style="{StaticResource CaptionLabelStyle}" />
+                                   Style="{StaticResource CaptionLabelStyle}"
+                                   FontSize="10" />
 
                             <Label Text="{Binding Delivery.DeliveryFee, StringFormat='৳{0:0}'}"
                                    Style="{StaticResource BodyLabelStyle}"
                                    FontAttributes="Bold"
+                                   FontSize="14"
                                    TextColor="{StaticResource PrimaryDarkColor}" />
 
                         </VerticalStackLayout>
@@ -194,16 +223,18 @@
 
         </ScrollView>
 
-        <!-- Action -->
+
+        <!-- ==================== ACTION ==================== -->
+
         <Border Grid.Row="2"
                 BackgroundColor="White"
                 StrokeThickness="0"
-                Padding="20,12,20,20">
+                Padding="18,10,18,50">
 
             <Button Text="{Binding ActionButtonText}"
                     Command="{Binding ActionCommand}"
                     Style="{StaticResource PrimaryButtonStyle}"
-                    HeightRequest="58" />
+                    HeightRequest="48" />
 
         </Border>
 

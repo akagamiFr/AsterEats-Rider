@@ -15,19 +15,20 @@
         <!-- ==================== CUSTOM HEADER ==================== -->
 
         <Grid Grid.Row="0"
-              Margin="20,12,20,8"
-              ColumnDefinitions="42,*"
-              ColumnSpacing="14"
+              Margin="18,8,18,4"
+              ColumnDefinitions="40,*"
+              ColumnSpacing="12"
               VerticalOptions="Center">
 
             <!-- Back Button -->
             <Border Grid.Column="0"
-                    WidthRequest="42"
-                    HeightRequest="42"
+                    WidthRequest="40"
+                    HeightRequest="40"
                     BackgroundColor="White"
                     StrokeThickness="0"
-                    StrokeShape="RoundRectangle 21"
-                    HorizontalOptions="Start">
+                    StrokeShape="RoundRectangle 20"
+                    HorizontalOptions="Start"
+                    Margin="0,30,0,0">
 
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnBackTapped" />
@@ -38,8 +39,8 @@
                       StrokeThickness="2.2"
                       StrokeLineCap="Round"
                       StrokeLineJoin="Round"
-                      WidthRequest="20"
-                      HeightRequest="20"
+                      WidthRequest="19"
+                      HeightRequest="19"
                       HorizontalOptions="Center"
                       VerticalOptions="Center" />
 
@@ -47,11 +48,12 @@
 
             <!-- Page Title -->
             <Label Grid.Column="1"
-       Text="Order Details"
-       Style="{StaticResource SectionTitleStyle}"
-       FontAttributes="Bold"
-       TextColor="{StaticResource PrimaryDarkColor}"
-       VerticalOptions="Center" />
+                   Text="Order Details"
+                   Style="{StaticResource SectionTitleStyle}"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource PrimaryDarkColor}"
+                   VerticalOptions="Center"
+                   Margin="0,30,0,0" />
 
         </Grid>
 
@@ -60,11 +62,12 @@
 
         <ScrollView Grid.Row="1">
 
-            <VerticalStackLayout Padding="20"
-                                 Spacing="16">
+            <VerticalStackLayout Padding="16,8,16,16"
+                                 Spacing="10">
 
                 <!-- Order Number + Status -->
-                <Grid ColumnDefinitions="*,Auto">
+                <Grid ColumnDefinitions="*,Auto"
+                      ColumnSpacing="8">
 
                     <Label Grid.Column="0"
                            Text="{Binding Order.Id, StringFormat='Order #{0}'}"
@@ -72,7 +75,8 @@
 
                     <Frame Grid.Column="1"
                            Style="{StaticResource StatusBadgeFrameStyle}"
-                           BackgroundColor="#E6F5F5">
+                           BackgroundColor="#E6F5F5"
+                           Padding="9,3">
 
                         <Label Text="{Binding Order.StatusText}"
                                Style="{StaticResource StatusBadgeLabelStyle}"
@@ -84,9 +88,10 @@
 
 
                 <!-- Restaurant / Pickup -->
-                <Frame Style="{StaticResource CardFrameStyle}">
+                <Frame Style="{StaticResource CardFrameStyle}"
+                       Padding="12">
 
-                    <VerticalStackLayout Spacing="8">
+                    <VerticalStackLayout Spacing="5">
 
                         <Label Text="Pickup"
                                Style="{StaticResource CaptionLabelStyle}" />
@@ -96,12 +101,13 @@
                                FontAttributes="Bold" />
 
                         <Label Text="{Binding Order.Restaurant.Address}"
-                               Style="{StaticResource CaptionLabelStyle}" />
+                               Style="{StaticResource CaptionLabelStyle}"
+                               LineBreakMode="TailTruncation" />
 
                         <Button Text="CALL RESTAURANT"
                                 Style="{StaticResource SecondaryButtonStyle}"
-                                HeightRequest="42"
-                                FontSize="13"
+                                HeightRequest="38"
+                                FontSize="12"
                                 Command="{Binding CallRestaurantCommand}" />
 
                     </VerticalStackLayout>
@@ -110,9 +116,10 @@
 
 
                 <!-- Customer / Drop-off -->
-                <Frame Style="{StaticResource CardFrameStyle}">
+                <Frame Style="{StaticResource CardFrameStyle}"
+                       Padding="12">
 
-                    <VerticalStackLayout Spacing="8">
+                    <VerticalStackLayout Spacing="5">
 
                         <Label Text="Deliver To"
                                Style="{StaticResource CaptionLabelStyle}" />
@@ -122,12 +129,13 @@
                                FontAttributes="Bold" />
 
                         <Label Text="{Binding Order.DeliveryAddress}"
-                               Style="{StaticResource CaptionLabelStyle}" />
+                               Style="{StaticResource CaptionLabelStyle}"
+                               LineBreakMode="TailTruncation" />
 
                         <Button Text="CALL CUSTOMER"
                                 Style="{StaticResource SecondaryButtonStyle}"
-                                HeightRequest="42"
-                                FontSize="13"
+                                HeightRequest="38"
+                                FontSize="12"
                                 Command="{Binding CallCustomerCommand}" />
 
                     </VerticalStackLayout>
@@ -136,13 +144,13 @@
 
 
                 <!-- Items -->
-                <Frame Style="{StaticResource CardFrameStyle}">
+                <Frame Style="{StaticResource CardFrameStyle}"
+                       Padding="12">
 
-                    <VerticalStackLayout Spacing="10">
+                    <VerticalStackLayout Spacing="6">
 
                         <Label Text="Items"
                                Style="{StaticResource CaptionLabelStyle}" />
-
 
                         <CollectionView ItemsSource="{Binding Order.Items}"
                                         SelectionMode="None">
@@ -152,21 +160,24 @@
                                 <DataTemplate x:DataType="models:OrderItem">
 
                                     <Grid ColumnDefinitions="Auto,*,Auto"
-                                          Padding="0,4"
-                                          ColumnSpacing="10">
+                                          Padding="0,2"
+                                          ColumnSpacing="7">
 
                                         <Label Grid.Column="0"
                                                Text="{Binding Quantity, StringFormat='{0}x'}"
                                                Style="{StaticResource BodyLabelStyle}"
-                                               WidthRequest="34" />
+                                               WidthRequest="30"
+                                               FontSize="14" />
 
                                         <Label Grid.Column="1"
                                                Text="{Binding Name}"
-                                               Style="{StaticResource BodyLabelStyle}" />
+                                               Style="{StaticResource BodyLabelStyle}"
+                                               FontSize="14" />
 
                                         <Label Grid.Column="2"
                                                Text="{Binding Price, StringFormat='৳{0:0}'}"
-                                               Style="{StaticResource CaptionLabelStyle}" />
+                                               Style="{StaticResource CaptionLabelStyle}"
+                                               FontSize="13" />
 
                                     </Grid>
 
@@ -186,12 +197,14 @@
 
                             <Label Grid.Column="0"
                                    Text="Order Amount"
-                                   Style="{StaticResource BodyLabelStyle}" />
+                                   Style="{StaticResource BodyLabelStyle}"
+                                   FontSize="14" />
 
                             <Label Grid.Column="1"
                                    Text="{Binding Order.OrderAmount, StringFormat='৳{0:0}'}"
                                    Style="{StaticResource BodyLabelStyle}"
-                                   FontAttributes="Bold" />
+                                   FontAttributes="Bold"
+                                   FontSize="14" />
 
                         </Grid>
 
@@ -201,12 +214,14 @@
 
                             <Label Grid.Column="0"
                                    Text="Delivery Fee (yours)"
-                                   Style="{StaticResource BodyLabelStyle}" />
+                                   Style="{StaticResource BodyLabelStyle}"
+                                   FontSize="14" />
 
                             <Label Grid.Column="1"
                                    Text="{Binding Order.DeliveryFee, StringFormat='৳{0:0}'}"
                                    Style="{StaticResource BodyLabelStyle}"
                                    FontAttributes="Bold"
+                                   FontSize="14"
                                    TextColor="{StaticResource PrimaryDarkColor}" />
 
                         </Grid>
@@ -217,11 +232,13 @@
 
                             <Label Grid.Column="0"
                                    Text="Payment Method"
-                                   Style="{StaticResource CaptionLabelStyle}" />
+                                   Style="{StaticResource CaptionLabelStyle}"
+                                   FontSize="12" />
 
                             <Label Grid.Column="1"
                                    Text="{Binding Order.PaymentMethod}"
-                                   Style="{StaticResource CaptionLabelStyle}" />
+                                   Style="{StaticResource CaptionLabelStyle}"
+                                   FontSize="12" />
 
                         </Grid>
 
@@ -231,11 +248,13 @@
 
                             <Label Grid.Column="0"
                                    Text="Distance"
-                                   Style="{StaticResource CaptionLabelStyle}" />
+                                   Style="{StaticResource CaptionLabelStyle}"
+                                   FontSize="12" />
 
                             <Label Grid.Column="1"
                                    Text="{Binding Order.DistanceKm, StringFormat='{0:0.0} km'}"
-                                   Style="{StaticResource CaptionLabelStyle}" />
+                                   Style="{StaticResource CaptionLabelStyle}"
+                                   FontSize="12" />
 
                         </Grid>
 
@@ -253,7 +272,8 @@
         <Button Grid.Row="2"
                 Text="START DELIVERY"
                 Style="{StaticResource PrimaryButtonStyle}"
-                Margin="20,0,20,20"
+                Margin="18,0,18,80"
+                HeightRequest="48"
                 Command="{Binding StartDeliveryCommand}" />
 
     </Grid>
