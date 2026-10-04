@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
@@ -44,11 +44,13 @@
 
 	<ItemGroup>
 		<!-- App Icon (AsterTrek primary colour as the icon background) -->
-		<MauiIcon Include="Resources\Images\appicon.svg" ForegroundFile="Resources\Images\appicon_fg.svg" Color="#36ABAD" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Images\splash.svg" Color="#36ABAD" BaseSize="128,128" />
-		<MauiImage Include="Resources\Images\appicon_fg.svg" />
+		<MauiIcon Include="Resources\Images\appicon.png"
+          BaseSize="1024,1024"
+			  />
+		
 		<MauiImage Include="Resources\Images\food_delivery.webp" />
 		<MauiImage Include="Resources\Images\food_delivery_rider.svg" />
 		<MauiImage Include="Resources\Images\icon_delivery.svg" />
@@ -70,7 +72,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Images\appicon_fg.svg" />
+	  <None Remove="Resources\Images\appicon.png" />
+	  
 	  <None Remove="Resources\Images\food_delivery.webp" />
 	  <None Remove="Resources\Images\food_delivery_rider.svg" />
 	  <None Remove="Resources\Images\icon_delivery.svg" />

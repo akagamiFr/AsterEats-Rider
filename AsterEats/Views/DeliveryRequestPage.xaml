@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:AsterEats.ViewModels"
              x:Class="AsterEats.Views.DeliveryRequestPage"
-             x:DataType="viewmodels:DeliveryRequestViewModel"
-             BackgroundColor="{StaticResource AppBackground}"
-             Shell.NavBarIsVisible="False">
+             IsVisible="False">
 
     <Grid RowDefinitions="*,Auto">
 
-        <!-- Dimmed background -->
+        <!-- Dimmed Home Background -->
         <BoxView Grid.RowSpan="2"
                  Color="#66000000" />
 
@@ -19,33 +16,32 @@
                 Grid.Row="1"
                 BackgroundColor="{StaticResource AppBackground}"
                 StrokeThickness="0"
-                Padding="22,24,22,28">
+                Padding="20,20,20,24"
+                TranslationY="700">
 
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="26,26,0,0" />
             </Border.StrokeShape>
 
             <Border.GestureRecognizers>
-
-                <!-- Drag the whole request sheet -->
                 <PanGestureRecognizer
                     PanUpdated="OnBottomSheetPanUpdated" />
-
             </Border.GestureRecognizers>
 
-            <VerticalStackLayout Spacing="18">
+            <VerticalStackLayout Spacing="14">
 
                 <!-- Handle -->
-                <BoxView WidthRequest="45"
+                <BoxView WidthRequest="44"
                          HeightRequest="5"
                          CornerRadius="3"
                          Color="#C9D0D0"
                          HorizontalOptions="Center" />
 
                 <!-- Header -->
-                <Grid ColumnDefinitions="*,Auto">
+                <Grid ColumnDefinitions="*,Auto"
+                      ColumnSpacing="10">
 
-                    <VerticalStackLayout Spacing="3">
+                    <VerticalStackLayout Spacing="2">
 
                         <Label Text="New Delivery Request"
                                Style="{StaticResource ScreenTitleStyle}" />
@@ -58,7 +54,8 @@
                     <Border Grid.Column="1"
                             BackgroundColor="#E8F7F7"
                             StrokeThickness="0"
-                            Padding="10,7">
+                            Padding="10,6"
+                            VerticalOptions="Center">
 
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="12" />
@@ -66,65 +63,77 @@
 
                         <Label Text="{Binding Delivery.DistanceKm, StringFormat='{0:0.0} km'}"
                                TextColor="{StaticResource PrimaryDarkColor}"
-                               FontAttributes="Bold" />
+                               FontAttributes="Bold"
+                               FontSize="12" />
 
                     </Border>
 
                 </Grid>
 
-                <!-- Restaurant -->
+
+                <!-- Pickup -->
                 <Border BackgroundColor="White"
                         Stroke="#E3E8E8"
                         StrokeThickness="1"
-                        Padding="16">
+                        Padding="13">
 
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="16" />
                     </Border.StrokeShape>
 
-                    <VerticalStackLayout Spacing="5">
+                    <VerticalStackLayout Spacing="4">
 
                         <Label Text="PICKUP"
                                Style="{StaticResource CaptionLabelStyle}"
                                TextColor="{StaticResource PrimaryDarkColor}"
-                               FontAttributes="Bold" />
+                               FontAttributes="Bold"
+                               FontSize="11" />
 
                         <Label Text="{Binding Delivery.Restaurant.Name}"
-                               Style="{StaticResource SectionTitleStyle}" />
+                               Style="{StaticResource SectionTitleStyle}"
+                               FontSize="15" />
 
                         <Label Text="{Binding Delivery.Restaurant.Address}"
-                               Style="{StaticResource BodyLabelStyle}" />
+                               Style="{StaticResource BodyLabelStyle}"
+                               FontSize="14"
+                               LineBreakMode="TailTruncation" />
 
                     </VerticalStackLayout>
 
                 </Border>
 
-                <!-- Delivery -->
+
+                <!-- Drop-off -->
                 <Border BackgroundColor="White"
                         Stroke="#E3E8E8"
                         StrokeThickness="1"
-                        Padding="16">
+                        Padding="13">
 
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="16" />
                     </Border.StrokeShape>
 
-                    <VerticalStackLayout Spacing="5">
+                    <VerticalStackLayout Spacing="4">
 
                         <Label Text="DROP-OFF"
                                Style="{StaticResource CaptionLabelStyle}"
                                TextColor="{StaticResource PrimaryDarkColor}"
-                               FontAttributes="Bold" />
+                               FontAttributes="Bold"
+                               FontSize="11" />
 
                         <Label Text="{Binding Delivery.CustomerName}"
-                               Style="{StaticResource SectionTitleStyle}" />
+                               Style="{StaticResource SectionTitleStyle}"
+                               FontSize="15" />
 
                         <Label Text="{Binding Delivery.DeliveryAddress}"
-                               Style="{StaticResource BodyLabelStyle}" />
+                               Style="{StaticResource BodyLabelStyle}"
+                               FontSize="14"
+                               LineBreakMode="TailTruncation" />
 
                     </VerticalStackLayout>
 
                 </Border>
+
 
                 <!-- Earnings -->
                 <Grid ColumnDefinitions="*,Auto"
@@ -157,26 +166,27 @@
 
                 </Grid>
 
-                <!-- Buttons -->
+
+                <!-- Actions -->
                 <Grid ColumnDefinitions="*,*"
-                      ColumnSpacing="12">
+                      ColumnSpacing="10">
 
                     <Button Grid.Column="0"
                             Text="REJECT"
-                            Command="{Binding RejectCommand}"
                             BackgroundColor="Transparent"
                             BorderColor="#D75B5B"
                             BorderWidth="1"
                             TextColor="#B43F3F"
-                            HeightRequest="52"
-                            CornerRadius="14" />
+                            HeightRequest="46"
+                            CornerRadius="14"
+                            Clicked="OnRejectClicked" />
 
                     <Button Grid.Column="1"
                             Text="ACCEPT"
-                            Command="{Binding AcceptCommand}"
                             Style="{StaticResource PrimaryButtonStyle}"
-                            HeightRequest="52"
-                            CornerRadius="14" />
+                            HeightRequest="46"
+                            CornerRadius="14"
+                            Clicked="OnAcceptClicked" />
 
                 </Grid>
 
@@ -186,4 +196,4 @@
 
     </Grid>
 
-</ContentPage>
+</ContentView>

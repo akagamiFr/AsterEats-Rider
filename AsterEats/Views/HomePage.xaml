@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:AsterEats.Views"
              xmlns:viewmodels="clr-namespace:AsterEats.ViewModels"
              xmlns:controls="clr-namespace:AsterEats.Controls"
              x:Class="AsterEats.Views.HomePage"
@@ -8,7 +9,9 @@
              BackgroundColor="{StaticResource AppBackground}">
 
     <!-- Main Background Layer -->
-    <Grid>
+    <!-- Main Background Layer -->
+    <Grid x:Name="HomeRoot"
+      Opacity="0">
 
         <!-- Food Delivery Background Illustration -->
         <Image Source="food_delivery_rider.svg"
@@ -332,6 +335,12 @@
     VerticalOptions="End"
     HorizontalOptions="Fill" 
             Margin="0,0,0,30"/>
+        <views:DeliveryRequestPage
+    x:Name="DeliveryRequestOverlay"
+    Grid.Row="0"
+    HorizontalOptions="Fill"
+    VerticalOptions="Fill"
+    IsVisible="False" />
 
     </Grid>
 

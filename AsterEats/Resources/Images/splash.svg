@@ -1,77 +1,74 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+	<g transform="translate(88 -12)" stroke-linecap="round" stroke-linejoin="round">
 
-	<!-- Burger -->
-	<path d="M22 46
-           V41
-           C22 34 31 30 40 30
-           H64
-           C73 30 82 34 82 41
-           V46
-           Z"
-		  fill="#FFFFFF"/>
+		<!-- speed lines -->
+		<g fill="none" stroke="#FFFFFF" stroke-width="10">
+			<path d="M70 420H140"/>
+			<path d="M44 480H134"/>
+			<path d="M88 540H150"/>
+			<path d="M60 640H190"/>
+			<path d="M104 700H170"/>
+		</g>
 
-	<!-- Sesame seeds -->
-	<g fill="#36ABAD">
-		<ellipse cx="35" cy="39" rx="2.2" ry="1.2"/>
-		<ellipse cx="46" cy="35" rx="2.2" ry="1.2"/>
-		<ellipse cx="58" cy="35" rx="2.2" ry="1.2"/>
-		<ellipse cx="69" cy="39" rx="2.2" ry="1.2"/>
-		<ellipse cx="52" cy="41" rx="2.2" ry="1.2"/>
+		<!-- wheels -->
+		<g fill="none" stroke="#FFFFFF">
+			<circle cx="300" cy="700" r="62" stroke-width="16"/>
+			<circle cx="300" cy="700" r="36" stroke-width="6"/>
+			<circle cx="700" cy="700" r="62" stroke-width="16"/>
+			<circle cx="700" cy="700" r="36" stroke-width="6"/>
+		</g>
+		<circle cx="300" cy="700" r="12" fill="#FFFFFF"/>
+		<circle cx="700" cy="700" r="12" fill="#FFFFFF"/>
+
+		<!-- scooter body and seat -->
+		<path fill="#FFFFFF" d="M250 612C244 574 274 550 318 550H468C490 550 504 564 504 586V640H420C412 640 406 628 396 618L390 612Z"/>
+		<path fill="#FFFFFF" d="M326 548V540Q326 528 340 528H470Q484 528 484 540V548Z"/>
+
+		<!-- floorboard -->
+		<rect x="410" y="658" width="205" height="28" rx="12" fill="#FFFFFF"/>
+
+		<!-- front shield -->
+		<path fill="#FFFFFF" d="M590 652C596 590 620 520 646 452L690 466C672 530 662 590 664 652Z"/>
+
+		<!-- fork, fender, handlebar, headlight -->
+		<g fill="none" stroke="#FFFFFF">
+			<path d="M710 446L700 700" stroke-width="14"/>
+			<path d="M634 676C636 626 668 606 700 606C732 606 764 626 766 676" stroke-width="12"/>
+			<path d="M706 452L698 416L664 408" stroke-width="12"/>
+		</g>
+		<path fill="#FFFFFF" d="M712 452C746 454 754 468 752 480C750 492 738 496 712 496Z"/>
+
+		<!-- delivery box -->
+		<path fill="#FFFFFF" d="M170 362V342Q170 312 200 312H340Q370 312 370 342V362Z"/>
+		<g fill="none" stroke="#FFFFFF">
+			<path d="M236 312V290Q236 278 248 278H292Q304 278 304 290V312" stroke-width="12"/>
+			<rect x="176" y="380" width="188" height="132" rx="22" stroke-width="12"/>
+			<path d="M184 532H370" stroke-width="8"/>
+		</g>
+		<rect x="196" y="400" width="148" height="96" rx="12" fill="#FFFFFF"/>
+
+		<!-- rider leg -->
+		<g fill="none" stroke="#FFFFFF">
+			<path d="M430 498L548 530" stroke-width="36"/>
+			<path d="M548 530L572 630" stroke-width="32"/>
+		</g>
+		<rect x="556" y="630" width="72" height="22" rx="11" fill="#FFFFFF"/>
+
+		<!-- torso with reflective stripe gap -->
+		<g transform="translate(0 -14)" fill="#FFFFFF">
+			<path d="M396 484C398 444 420 414 452 398C486 382 522 402 520 438C519 460 508 482 494 496Z"/>
+			<path d="M394 500L496 512C486 522 474 530 458 534L404 534C398 524 394 512 394 500Z"/>
+		</g>
+
+		<!-- arm -->
+		<path d="M482 424Q556 462 650 414" fill="none" stroke="#FFFFFF" stroke-width="32"/>
+		<circle cx="656" cy="412" r="15" fill="#FFFFFF"/>
+
+		<!-- neck -->
+		<path d="M528 392L514 414" fill="none" stroke="#FFFFFF" stroke-width="22"/>
+
+		<!-- helmet: dome, visor slit (gap), chin guard -->
+		<path fill="#FFFFFF" d="M508 342C506 306 532 288 562 290C592 292 612 314 614 338Z"/>
+		<path fill="#FFFFFF" d="M518 358L612 354C608 384 590 400 564 400C538 398 522 384 518 358Z"/>
 	</g>
-
-	<!-- Burger filling -->
-	<path d="M22 47
-           H82
-           V51
-           C76 56 70 56 64 51
-           C58 56 52 56 46 51
-           C40 56 34 56 28 51
-           C26 53 24 53 22 52
-           Z"
-		  fill="#FFFFFF"/>
-
-	<!-- Patty -->
-	<rect x="24"
-		  y="57"
-		  width="56"
-		  height="13"
-		  rx="4"
-		  fill="#FFFFFF"/>
-
-	<!-- Bottom bun -->
-	<path d="M24 72
-           H80
-           V85
-           C80 91 74 94 64 94
-           H40
-           C30 94 24 91 24 85
-           Z"
-		  fill="#FFFFFF"/>
-
-	<!-- Burger separator details -->
-	<rect x="24" y="46" width="58" height="2" fill="#36ABAD"/>
-	<rect x="24" y="55" width="56" height="2" fill="#36ABAD"/>
-	<rect x="24" y="70" width="56" height="2" fill="#36ABAD"/>
-
-
-	<!-- Fork -->
-	<g fill="#FFFFFF">
-
-		<!-- Four straight prongs -->
-		<rect x="88" y="30" width="3" height="20" rx="1.5"/>
-		<rect x="93" y="30" width="3" height="20" rx="1.5"/>
-		<rect x="98" y="30" width="3" height="20" rx="1.5"/>
-		<rect x="103" y="30" width="3" height="20" rx="1.5"/>
-
-		<!-- Fork head / shoulder -->
-		<rect x="88" y="47" width="18" height="6" rx="2"/>
-
-		<!-- Straight neck -->
-		<rect x="94" y="51" width="6" height="12"/>
-
-		<!-- Handle -->
-		<rect x="93" y="61" width="8" height="34" rx="4"/>
-
-	</g>
-
 </svg>

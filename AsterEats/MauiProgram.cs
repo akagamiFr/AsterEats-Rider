@@ -88,7 +88,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<EarningsPage>();
         builder.Services.AddSingleton<ProfilePage>();
 
-        builder.Services.AddTransient<DeliveryRequestPage>();
+        
         builder.Services.AddTransient<OrderDetailsPage>();
         builder.Services.AddTransient<ActiveDeliveryPage>();
         builder.Services.AddTransient<NotificationsPage>();

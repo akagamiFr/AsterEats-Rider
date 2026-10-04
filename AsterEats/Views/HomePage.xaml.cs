@@ -1,3 +1,4 @@
+using AsterEats.Services;
 using AsterEats.ViewModels;
 
 namespace AsterEats.Views;
@@ -5,32 +6,47 @@ namespace AsterEats.Views;
 public partial class HomePage : ContentPage
 {
     private readonly HomeViewModel _viewModel;
+    private readonly MockDataService _dataService;
 
     private CancellationTokenSource? _titleAnimationCts;
 
-    public HomePage(HomeViewModel viewModel)
+    public HomePage(
+        HomeViewModel viewModel,
+        MockDataService dataService)
     {
         InitializeComponent();
+
         BindingContext = _viewModel = viewModel;
+        _dataService = dataService;
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
 
         _viewModel.RefreshCommand.Execute(null);
 
-        // Online button pulse animation
-        UpdateOnlineAnimation();
+        if (!_viewModel.HasActiveDelivery)
+        {
+            DeliveryRequestOverlay.IsVisible = false;
+        }
 
-        // Start AsterEats title animation
+        // Start invisible
+        HomeRoot.Opacity = 0;
+
+        UpdateOnlineAnimation();
         StartTitleAnimation();
+
+        // Smooth fade-in
+        await HomeRoot.FadeTo(
+            1,
+            500,
+            Easing.CubicInOut);
     }
 
     protected override void OnDisappearing()
     {
         // Stop title animation when leaving Home page
-        
 
         base.OnDisappearing();
     }
@@ -234,10 +250,24 @@ public partial class HomePage : ContentPage
         PulseRing.Scale = 0.85;
         PulseRing.Opacity = 0;
     }
-    private async void OnNotificationTapped(object sender, TappedEventArgs e)
+
+
+    // =========================================================
+    // Notifications
+    // =========================================================
+
+    private async void OnNotificationTapped(
+        object sender,
+        TappedEventArgs e)
     {
         await Shell.Current.GoToAsync("notifications");
     }
+
+
+    // =========================================================
+    // Current Delivery → Bottom Sheet
+    // =========================================================
+
     private async void OnCurrentDeliveryTapped(
         object sender,
         TappedEventArgs e)
@@ -258,6 +288,8 @@ public partial class HomePage : ContentPage
                 Easing.CubicIn);
         }
 
-        await Shell.Current.GoToAsync("deliveryrequest");
+        // Show Delivery Request as bottom sheet
+        await DeliveryRequestOverlay.ShowAsync(
+            _dataService);
     }
 }
