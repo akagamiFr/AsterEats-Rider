@@ -5,236 +5,794 @@
              xmlns:viewmodels="clr-namespace:AsterEats.ViewModels"
              x:Class="AsterEats.Views.ActiveDeliveryPage"
              x:DataType="viewmodels:ActiveDeliveryViewModel"
-             BackgroundColor="{StaticResource AppBackground}"
+             BackgroundColor="#EAF0EE"
              Shell.NavBarIsVisible="False">
 
-    <Grid RowDefinitions="Auto,*,Auto">
+    <Grid>
 
-        <!-- ==================== HEADER ==================== -->
+        <!-- ================================================= -->
+        <!-- PROTOTYPE MAP                                     -->
+        <!-- ================================================= -->
 
-        <Grid Grid.Row="0"
-              Padding="18,10,18,6"
-              ColumnDefinitions="*,Auto"
-              ColumnSpacing="10">
+        <Grid>
 
-            <VerticalStackLayout Spacing="2">
+            <BoxView Color="#EAF0EE" />
 
-                <Label Text="Active Delivery"
-                       Style="{StaticResource ScreenTitleStyle}"
-                        Margin="0,40,0,0"/>
+            <!-- Map areas -->
 
-                <Label Text="{Binding Delivery.Restaurant.Name}"
-                       Style="{StaticResource CaptionLabelStyle}" />
-
-            </VerticalStackLayout>
-
-            <Border Grid.Column="1"
-                    BackgroundColor="#E8F7F7"
+            <Border WidthRequest="145"
+                    HeightRequest="105"
+                    BackgroundColor="#DCEBDC"
                     StrokeThickness="0"
-                    Padding="10,6"
-                    VerticalOptions="Center">
+                    Opacity="0.9"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    Margin="18,145,0,0">
 
                 <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="12" />
+                    <RoundRectangle CornerRadius="30" />
                 </Border.StrokeShape>
 
-                <Label Text="{Binding Delivery.StatusText}"
-                       TextColor="{StaticResource PrimaryDarkColor}"
+            </Border>
+
+
+            <Border WidthRequest="125"
+                    HeightRequest="145"
+                    BackgroundColor="#D8E9D8"
+                    StrokeThickness="0"
+                    Opacity="0.9"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    Margin="0,0,22,85">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="32" />
+                </Border.StrokeShape>
+
+            </Border>
+
+
+            <!-- Roads -->
+
+            <Border WidthRequest="560"
+                    HeightRequest="76"
+                    BackgroundColor="White"
+                    StrokeThickness="0"
+                    Rotation="-15"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    TranslationY="-55">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="38" />
+                </Border.StrokeShape>
+
+            </Border>
+
+
+            <Border WidthRequest="580"
+                    HeightRequest="58"
+                    BackgroundColor="White"
+                    StrokeThickness="0"
+                    Rotation="34"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    TranslationY="78">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="29" />
+                </Border.StrokeShape>
+
+            </Border>
+
+
+            <Border WidthRequest="48"
+                    HeightRequest="620"
+                    BackgroundColor="White"
+                    StrokeThickness="0"
+                    Rotation="20"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    TranslationX="125"
+                    TranslationY="80">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="24" />
+                </Border.StrokeShape>
+
+            </Border>
+
+
+            <!-- Route -->
+
+            <Path Data="M 42,545
+                        C 105,500 145,455 205,415
+                        C 270,372 310,325 345,268
+                        C 378,215 420,165 482,108"
+                  Stroke="White"
+                  StrokeThickness="13"
+                  StrokeLineCap="Round"
+                  StrokeLineJoin="Round"
+                  Opacity="0.8" />
+
+            <Path Data="M 42,545
+                        C 105,500 145,455 205,415
+                        C 270,372 310,325 345,268
+                        C 378,215 420,165 482,108"
+                  Stroke="{StaticResource PrimaryColor}"
+                  StrokeThickness="6"
+                  StrokeLineCap="Round"
+                  StrokeLineJoin="Round" />
+
+
+            <!-- Pickup marker -->
+
+            <Border WidthRequest="44"
+                    HeightRequest="44"
+                    BackgroundColor="White"
+                    Stroke="{StaticResource PrimaryColor}"
+                    StrokeThickness="3"
+                    HorizontalOptions="Start"
+                    VerticalOptions="End"
+                    Margin="36,0,0,205">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="22" />
+                </Border.StrokeShape>
+
+                <Label Text="P"
+                       FontSize="17"
                        FontAttributes="Bold"
-                       FontSize="11" />
+                       TextColor="{StaticResource PrimaryDarkColor}"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center" />
+
+            </Border>
+
+
+            <!-- Drop-off marker -->
+
+            <Border WidthRequest="44"
+                    HeightRequest="44"
+                    BackgroundColor="White"
+                    Stroke="{StaticResource DangerColor}"
+                    StrokeThickness="3"
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    Margin="0,108,34,0">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="22" />
+                </Border.StrokeShape>
+
+                <Label Text="D"
+                       FontSize="17"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource DangerColor}"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center" />
+
+            </Border>
+
+
+            <!-- Rider location -->
+
+            <Ellipse x:Name="LocationPulseOuter"
+                     WidthRequest="105"
+                     HeightRequest="105"
+                     BackgroundColor="#2936ABAD"
+                     Stroke="#6636ABAD"
+                     StrokeThickness="1"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center"
+                     TranslationX="-48"
+                     TranslationY="58" />
+
+            <Ellipse WidthRequest="62"
+                     HeightRequest="62"
+                     BackgroundColor="#5236ABAD"
+                     StrokeThickness="0"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center"
+                     TranslationX="-48"
+                     TranslationY="58" />
+
+            <Border WidthRequest="30"
+                    HeightRequest="30"
+                    BackgroundColor="White"
+                    Stroke="{StaticResource PrimaryColor}"
+                    StrokeThickness="3"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    TranslationX="-48"
+                    TranslationY="58">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15" />
+                </Border.StrokeShape>
+
+                <Ellipse WidthRequest="10"
+                         HeightRequest="10"
+                         BackgroundColor="{StaticResource PrimaryColor}"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center" />
 
             </Border>
 
         </Grid>
 
 
-        <!-- ==================== DELIVERY CONTENT ==================== -->
+        <!-- ================================================= -->
+        <!-- TOP STATUS                                        -->
+        <!-- ================================================= -->
 
-        <ScrollView Grid.Row="1">
-
-            <VerticalStackLayout Padding="16,8,16,16"
-                                 Spacing="10">
-
-                <!-- Status -->
-                <Border BackgroundColor="{StaticResource PrimaryColor}"
-                        StrokeThickness="0"
-                        Padding="16">
-
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="18" />
-                    </Border.StrokeShape>
-
-                    <VerticalStackLayout Spacing="5">
-
-                        <Label Text="DELIVERY STATUS"
-                               TextColor="White"
-                               FontSize="11"
-                               FontAttributes="Bold"
-                               Opacity="0.8" />
-
-                        <Label Text="{Binding StatusTitle}"
-                               TextColor="White"
-                               FontSize="24"
-                               FontAttributes="Bold" />
-
-                        <Label Text="{Binding StatusDescription}"
-                               TextColor="White"
-                               FontSize="13"
-                               LineBreakMode="WordWrap"
-                               Opacity="0.95" />
-
-                    </VerticalStackLayout>
-
-                </Border>
-
-
-                <!-- Restaurant -->
-                <Border BackgroundColor="White"
-                        Stroke="#E3E8E8"
-                        StrokeThickness="1"
-                        Padding="14">
-
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="16" />
-                    </Border.StrokeShape>
-
-                    <VerticalStackLayout Spacing="4">
-
-                        <Label Text="PICKUP"
-                               Style="{StaticResource CaptionLabelStyle}"
-                               TextColor="{StaticResource PrimaryDarkColor}"
-                               FontAttributes="Bold"
-                               FontSize="11" />
-
-                        <Label Text="{Binding Delivery.Restaurant.Name}"
-                               Style="{StaticResource SectionTitleStyle}"
-                               FontSize="15" />
-
-                        <Label Text="{Binding Delivery.Restaurant.Address}"
-                               Style="{StaticResource BodyLabelStyle}"
-                               FontSize="14"
-                               LineBreakMode="TailTruncation" />
-
-                        <Label Text="{Binding Delivery.Restaurant.Phone}"
-                               Style="{StaticResource CaptionLabelStyle}"
-                               FontSize="12" />
-
-                    </VerticalStackLayout>
-
-                </Border>
-
-
-                <!-- Customer -->
-                <Border BackgroundColor="White"
-                        Stroke="#E3E8E8"
-                        StrokeThickness="1"
-                        Padding="14">
-
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="16" />
-                    </Border.StrokeShape>
-
-                    <VerticalStackLayout Spacing="4">
-
-                        <Label Text="DROP-OFF"
-                               Style="{StaticResource CaptionLabelStyle}"
-                               TextColor="{StaticResource PrimaryDarkColor}"
-                               FontAttributes="Bold"
-                               FontSize="11" />
-
-                        <Label Text="{Binding Delivery.CustomerName}"
-                               Style="{StaticResource SectionTitleStyle}"
-                               FontSize="15" />
-
-                        <Label Text="{Binding Delivery.CustomerPhone}"
-                               Style="{StaticResource BodyLabelStyle}"
-                               FontSize="14" />
-
-                        <Label Text="{Binding Delivery.DeliveryAddress}"
-                               Style="{StaticResource CaptionLabelStyle}"
-                               FontSize="12"
-                               LineBreakMode="TailTruncation" />
-
-                    </VerticalStackLayout>
-
-                </Border>
-
-
-                <!-- Delivery Summary -->
-                <Border BackgroundColor="White"
-                        Stroke="#E3E8E8"
-                        StrokeThickness="1"
-                        Padding="14">
-
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="16" />
-                    </Border.StrokeShape>
-
-                    <Grid ColumnDefinitions="*,*,*"
-                          ColumnSpacing="8">
-
-                        <VerticalStackLayout Spacing="2">
-
-                            <Label Text="DISTANCE"
-                                   Style="{StaticResource CaptionLabelStyle}"
-                                   FontSize="10" />
-
-                            <Label Text="{Binding Delivery.DistanceKm, StringFormat='{0:0.0} km'}"
-                                   Style="{StaticResource BodyLabelStyle}"
-                                   FontAttributes="Bold"
-                                   FontSize="14" />
-
-                        </VerticalStackLayout>
-
-                        <VerticalStackLayout Grid.Column="1"
-                                             Spacing="2">
-
-                            <Label Text="ORDER"
-                                   Style="{StaticResource CaptionLabelStyle}"
-                                   FontSize="10" />
-
-                            <Label Text="{Binding Delivery.OrderAmount, StringFormat='৳{0:0}'}"
-                                   Style="{StaticResource BodyLabelStyle}"
-                                   FontAttributes="Bold"
-                                   FontSize="14" />
-
-                        </VerticalStackLayout>
-
-                        <VerticalStackLayout Grid.Column="2"
-                                             Spacing="2">
-
-                            <Label Text="FEE"
-                                   Style="{StaticResource CaptionLabelStyle}"
-                                   FontSize="10" />
-
-                            <Label Text="{Binding Delivery.DeliveryFee, StringFormat='৳{0:0}'}"
-                                   Style="{StaticResource BodyLabelStyle}"
-                                   FontAttributes="Bold"
-                                   FontSize="14"
-                                   TextColor="{StaticResource PrimaryDarkColor}" />
-
-                        </VerticalStackLayout>
-
-                    </Grid>
-
-                </Border>
-
-            </VerticalStackLayout>
-
-        </ScrollView>
-
-
-        <!-- ==================== ACTION ==================== -->
-
-        <Border Grid.Row="2"
+        <Border HorizontalOptions="Start"
+                VerticalOptions="Start"
+                Margin="16,48,0,0"
                 BackgroundColor="White"
                 StrokeThickness="0"
-                Padding="18,10,18,50">
+                Padding="12,8">
 
-            <Button Text="{Binding ActionButtonText}"
-                    Command="{Binding ActionCommand}"
-                    Style="{StaticResource PrimaryButtonStyle}"
-                    HeightRequest="48" />
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="16" />
+            </Border.StrokeShape>
+
+            <HorizontalStackLayout Spacing="8">
+
+                <BoxView WidthRequest="8"
+                         HeightRequest="8"
+                         CornerRadius="4"
+                         Color="{StaticResource SuccessColor}"
+                         VerticalOptions="Center" />
+
+                <Label Text="ON THE WAY"
+                       FontSize="11"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource TextPrimary}"
+                       VerticalOptions="Center" />
+
+            </HorizontalStackLayout>
+
+        </Border>
+
+
+        <!-- ================================================= -->
+        <!-- BOTTOM DRAWER                                     -->
+        <!-- ================================================= -->
+
+        <Border x:Name="BottomDrawer"
+                VerticalOptions="End"
+                BackgroundColor="White"
+                StrokeThickness="0"
+                Padding="18,10,18,0">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="28,28,0,0" />
+            </Border.StrokeShape>
+
+
+            <!-- Entire drawer is draggable -->
+
+            <Border.GestureRecognizers>
+                <PanGestureRecognizer
+                    PanUpdated="OnDrawerPanUpdated" />
+            </Border.GestureRecognizers>
+
+
+            <Grid RowDefinitions="Auto,Auto,*,Auto"
+                  RowSpacing="10">
+
+
+                <!-- ================================================= -->
+                <!-- HANDLE                                             -->
+                <!-- ================================================= -->
+
+                <Border Grid.Row="0"
+                        WidthRequest="50"
+                        HeightRequest="5"
+                        BackgroundColor="#C9D2D2"
+                        StrokeThickness="0"
+                        HorizontalOptions="Center">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="3" />
+                    </Border.StrokeShape>
+
+                </Border>
+
+
+                <!-- ================================================= -->
+                <!-- HEADER                                             -->
+                <!-- ================================================= -->
+
+                <Grid Grid.Row="1"
+                      ColumnDefinitions="*,Auto"
+                      ColumnSpacing="10">
+
+                    <VerticalStackLayout Spacing="2">
+
+                        <Label Text="Active Delivery"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource TextPrimary}" />
+
+                        <Label Text="{Binding Delivery.Restaurant.Name}"
+                               Style="{StaticResource CaptionLabelStyle}"
+                               LineBreakMode="TailTruncation" />
+
+                    </VerticalStackLayout>
+
+
+                    <Border Grid.Column="1"
+                            BackgroundColor="#E8F7F7"
+                            StrokeThickness="0"
+                            Padding="10,6"
+                            VerticalOptions="Center">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+
+                        <Label Text="{Binding Delivery.StatusText}"
+                               TextColor="{StaticResource PrimaryDarkColor}"
+                               FontSize="11"
+                               FontAttributes="Bold" />
+
+                    </Border>
+
+                </Grid>
+
+
+                <!-- ================================================= -->
+                <!-- SCROLLABLE CONTENT                                 -->
+                <!-- ================================================= -->
+
+                <ScrollView Grid.Row="2"
+                            VerticalScrollBarVisibility="Never">
+
+                    <VerticalStackLayout Spacing="10">
+
+
+                        <!-- ================================================= -->
+                        <!-- ETA / DISTANCE                                   -->
+                        <!-- ================================================= -->
+
+                        <Border BackgroundColor="#F4F9F9"
+                                StrokeThickness="0"
+                                Padding="12">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="16" />
+                            </Border.StrokeShape>
+
+                            <Grid ColumnDefinitions="*,*">
+
+                                <VerticalStackLayout Spacing="2">
+
+                                    <Label Text="EST. ARRIVAL"
+                                           FontSize="10"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource TextMuted}" />
+
+                                    <Label Text="~ 12 min"
+                                           FontSize="20"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource PrimaryDarkColor}" />
+
+                                </VerticalStackLayout>
+
+
+                                <VerticalStackLayout Grid.Column="1"
+                                                     Spacing="2"
+                                                     HorizontalOptions="End">
+
+                                    <Label Text="DISTANCE"
+                                           FontSize="10"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource TextMuted}"
+                                           HorizontalTextAlignment="End" />
+
+                                    <Label Text="{Binding Delivery.DistanceKm, StringFormat='{0:0.0} km'}"
+                                           FontSize="20"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource TextPrimary}"
+                                           HorizontalTextAlignment="End" />
+
+                                </VerticalStackLayout>
+
+                            </Grid>
+
+                        </Border>
+
+
+                        <!-- ================================================= -->
+                        <!-- PROGRESS                                           -->
+                        <!-- ================================================= -->
+
+                        <Border BackgroundColor="#F8FAFA"
+                                Stroke="#E4EAEA"
+                                StrokeThickness="1"
+                                Padding="13">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="16" />
+                            </Border.StrokeShape>
+
+                            <Grid RowDefinitions="Auto,Auto"
+                                  ColumnDefinitions="Auto,*,Auto,*,Auto">
+
+                                <Border x:Name="PickupStep"
+                                        WidthRequest="34"
+                                        HeightRequest="34"
+                                        BackgroundColor="#E4ECEC"
+                                        StrokeThickness="0">
+
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="17" />
+                                    </Border.StrokeShape>
+
+                                    <Label Text="1"
+                                           FontSize="13"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource TextSecondary}"
+                                           HorizontalTextAlignment="Center"
+                                           VerticalTextAlignment="Center" />
+
+                                </Border>
+
+
+                                <BoxView x:Name="PickupToOnWayConnector"
+                                         Grid.Column="1"
+                                         HeightRequest="3"
+                                         BackgroundColor="#DDE5E5"
+                                         HorizontalOptions="Fill"
+                                         VerticalOptions="Center" />
+
+
+                                <Border x:Name="OnWayStep"
+                                        Grid.Column="2"
+                                        WidthRequest="34"
+                                        HeightRequest="34"
+                                        BackgroundColor="#E4ECEC"
+                                        StrokeThickness="0">
+
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="17" />
+                                    </Border.StrokeShape>
+
+                                    <Label Text="2"
+                                           FontSize="13"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource TextSecondary}"
+                                           HorizontalTextAlignment="Center"
+                                           VerticalTextAlignment="Center" />
+
+                                </Border>
+
+
+                                <BoxView x:Name="OnWayToDropoffConnector"
+                                         Grid.Column="3"
+                                         HeightRequest="3"
+                                         BackgroundColor="#DDE5E5"
+                                         HorizontalOptions="Fill"
+                                         VerticalOptions="Center" />
+
+
+                                <Border x:Name="DropoffStep"
+                                        Grid.Column="4"
+                                        WidthRequest="34"
+                                        HeightRequest="34"
+                                        BackgroundColor="#E4ECEC"
+                                        StrokeThickness="0">
+
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="17" />
+                                    </Border.StrokeShape>
+
+                                    <Label Text="3"
+                                           FontSize="13"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource TextSecondary}"
+                                           HorizontalTextAlignment="Center"
+                                           VerticalTextAlignment="Center" />
+
+                                </Border>
+
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Text="Pickup"
+                                       FontSize="10"
+                                       TextColor="{StaticResource TextSecondary}"
+                                       HorizontalTextAlignment="Center" />
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="2"
+                                       Text="On the way"
+                                       FontSize="10"
+                                       TextColor="{StaticResource TextSecondary}"
+                                       HorizontalTextAlignment="Center" />
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="4"
+                                       Text="Drop-off"
+                                       FontSize="10"
+                                       TextColor="{StaticResource TextSecondary}"
+                                       HorizontalTextAlignment="Center" />
+
+                            </Grid>
+
+                        </Border>
+
+
+                        <!-- ================================================= -->
+                        <!-- CUSTOMER CONTACT                                  -->
+                        <!-- ================================================= -->
+
+                        <Border BackgroundColor="#FFFFFF"
+                                Stroke="#E3E8E8"
+                                StrokeThickness="1"
+                                Padding="13">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="16" />
+                            </Border.StrokeShape>
+
+                            <Grid RowDefinitions="Auto,Auto"
+                                  ColumnDefinitions="*,Auto"
+                                  RowSpacing="9">
+
+                                <VerticalStackLayout Spacing="2">
+
+                                    <Label Text="CUSTOMER"
+                                           FontSize="10"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource PrimaryDarkColor}" />
+
+                                    <Label Text="{Binding Delivery.CustomerName}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource TextPrimary}" />
+
+                                    <Label Text="{Binding Delivery.CustomerPhone}"
+                                           FontSize="12"
+                                           TextColor="{StaticResource TextSecondary}" />
+
+                                </VerticalStackLayout>
+
+
+                                <!-- Contact buttons -->
+
+                                <HorizontalStackLayout Grid.Column="1"
+                                                       Spacing="8"
+                                                       VerticalOptions="Center">
+
+                                    <!-- CALL -->
+
+                                    <Border WidthRequest="44"
+                                            HeightRequest="44"
+                                            BackgroundColor="#E8F7F7"
+                                            StrokeThickness="0">
+
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="22" />
+                                        </Border.StrokeShape>
+
+                                        <Path Data="M7.2,4.6
+                                                   C6.5,4.2 5.6,4.4 5.1,5.1
+                                                   L4.4,6.1
+                                                   C4.0,6.8 4.0,7.7 4.4,8.5
+                                                   C6.6,13.1 10.3,16.8 14.9,19
+                                                   C15.7,19.4 16.6,19.4 17.3,19
+                                                   L18.3,18.3
+                                                   C19.0,17.8 19.2,16.9 18.8,16.2
+                                                   L17.5,14.1
+                                                   C17.1,13.5 16.4,13.3 15.8,13.6
+                                                   L14.2,14.4
+                                                   C11.8,13.1 9.9,11.2 8.6,8.8
+                                                   L9.4,7.2
+                                                   C9.7,6.6 9.5,5.9 8.9,5.5
+                                                   Z"
+                                              Stroke="{StaticResource PrimaryDarkColor}"
+                                              StrokeThickness="1.7"
+                                              StrokeLineCap="Round"
+                                              StrokeLineJoin="Round"
+                                              WidthRequest="20"
+                                              HeightRequest="20"
+                                              HorizontalOptions="Center"
+                                              VerticalOptions="Center" />
+
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Tapped="OnCallCustomerTapped" />
+                                        </Border.GestureRecognizers>
+
+                                    </Border>
+
+
+                                    <!-- MESSAGE -->
+
+                                    <Border WidthRequest="44"
+                                            HeightRequest="44"
+                                            BackgroundColor="#F1F3F3"
+                                            StrokeThickness="0">
+
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="22" />
+                                        </Border.StrokeShape>
+
+                                        <Path Data="M5,4
+                                                   H19
+                                                   C20.1,4 21,4.9 21,6
+                                                   V13
+                                                   C21,14.9 19.9,16 18,16
+                                                   H10
+                                                   L6,19.5
+                                                   V16
+                                                   H5
+                                                   C3.1,16 2,14.9 2,13
+                                                   V7
+                                                   C2,5.1 3.1,4 5,4
+                                                   Z"
+                                              Fill="Transparent"
+                                              Stroke="{StaticResource TextSecondary}"
+                                              StrokeThickness="1.8"
+                                              StrokeLineCap="Round"
+                                              StrokeLineJoin="Round"
+                                              WidthRequest="22"
+                                              HeightRequest="22"
+                                              HorizontalOptions="Center"
+                                              VerticalOptions="Center"
+                                              TranslationX="-1" />
+
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Tapped="OnMessageCustomerTapped" />
+                                        </Border.GestureRecognizers>
+
+                                    </Border>
+
+                                </HorizontalStackLayout>
+
+
+                                <!-- ADDRESS -->
+
+                                <VerticalStackLayout Grid.Row="1"
+                                                     Grid.ColumnSpan="2"
+                                                     Spacing="2">
+
+                                    <Label Text="DELIVER TO"
+                                           FontSize="10"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource TextMuted}" />
+
+                                    <Label Text="{Binding Delivery.DeliveryAddress}"
+                                           FontSize="13"
+                                           TextColor="{StaticResource TextSecondary}"
+                                           LineBreakMode="WordWrap" />
+
+                                </VerticalStackLayout>
+
+                            </Grid>
+
+                        </Border>
+
+
+                        <!-- ================================================= -->
+                        <!-- PICKUP                                            -->
+                        <!-- ================================================= -->
+
+                        <Border BackgroundColor="#F7FAFA"
+                                Stroke="#E3E8E8"
+                                StrokeThickness="1"
+                                Padding="13">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="16" />
+                            </Border.StrokeShape>
+
+                            <VerticalStackLayout Spacing="3">
+
+                                <Label Text="PICKUP"
+                                       FontSize="10"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource PrimaryDarkColor}" />
+
+                                <Label Text="{Binding Delivery.Restaurant.Name}"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource TextPrimary}" />
+
+                                <Label Text="{Binding Delivery.Restaurant.Address}"
+                                       FontSize="12"
+                                       TextColor="{StaticResource TextSecondary}"
+                                       LineBreakMode="WordWrap" />
+
+                            </VerticalStackLayout>
+
+                        </Border>
+
+
+                        <!-- ================================================= -->
+                        <!-- ORDER SUMMARY                                     -->
+                        <!-- ================================================= -->
+
+                        <Border BackgroundColor="#F7FAFA"
+                                Stroke="#E3E8E8"
+                                StrokeThickness="1"
+                                Padding="13">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="16" />
+                            </Border.StrokeShape>
+
+                            <Grid ColumnDefinitions="*,*,*">
+
+                                <VerticalStackLayout Spacing="2">
+
+                                    <Label Text="ORDER"
+                                           FontSize="10"
+                                           TextColor="{StaticResource TextMuted}" />
+
+                                    <Label Text="{Binding Delivery.OrderAmount, StringFormat='৳{0:0}'}"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource TextPrimary}" />
+
+                                </VerticalStackLayout>
+
+
+                                <VerticalStackLayout Grid.Column="1"
+                                                     Spacing="2">
+
+                                    <Label Text="DELIVERY FEE"
+                                           FontSize="10"
+                                           TextColor="{StaticResource TextMuted}" />
+
+                                    <Label Text="{Binding Delivery.DeliveryFee, StringFormat='৳{0:0}'}"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource PrimaryDarkColor}" />
+
+                                </VerticalStackLayout>
+
+
+                                <VerticalStackLayout Grid.Column="2"
+                                                     Spacing="2">
+
+                                    <Label Text="PAYMENT"
+                                           FontSize="10"
+                                           TextColor="{StaticResource TextMuted}" />
+
+                                    <Label Text="{Binding Delivery.PaymentMethod}"
+                                           FontSize="13"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource TextPrimary}"
+                                           HorizontalTextAlignment="End" />
+
+                                </VerticalStackLayout>
+
+                            </Grid>
+
+                        </Border>
+                        <!-- ACTION BUTTON IS PART OF SCROLL CONTENT -->
+
+                        <Button Text="{Binding ActionButtonText}"
+                Command="{Binding ActionCommand}"
+                Style="{StaticResource PrimaryButtonStyle}"
+                HeightRequest="48"
+                Margin="0,4,0,50" />
+
+                    </VerticalStackLayout>
+                    
+
+                </ScrollView>
+
+
+                
+             
+
+            </Grid>
 
         </Border>
 

@@ -16,7 +16,7 @@
                 Grid.Row="1"
                 BackgroundColor="{StaticResource AppBackground}"
                 StrokeThickness="0"
-                Padding="20,20,20,24"
+                Padding="20,20,20,55"
                 TranslationY="700">
 
             <Border.StrokeShape>
